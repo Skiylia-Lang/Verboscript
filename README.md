@@ -1,45 +1,41 @@
-# PySkiylia
-Dynamically typed Object Oriented Programming Language.
+# VerboseLang
+Programming Language.
 
 [![forthebadge](https://forthebadge.com/images/badges/made-with-python.svg)](https://forthebadge.com)
 
-![GitHub](https://img.shields.io/github/license/Skiylia-Lang/<This Repo>)
-[![CodeFactor](https://www.codefactor.io/repository/github/skiylia-lang/<This Repo>/badge)](https://www.codefactor.io/repository/github/skiylia-lang/<This Repo>)
-![Snyk Vulnerabilities for GitHub Repo](https://img.shields.io/snyk/vulnerabilities/github/Skiylia-Lang/<This Repo>)
-[![codecov](https://codecov.io/gh/Skiylia-Lang/<This Repo>/branch/main/graph/badge.svg?token=DRJ67ZQA7M)](https://codecov.io/gh/Skiylia-Lang/<This Repo>)
-[![time tracker](https://wakatime.com/badge/github/Skiylia-Lang/<This Repo>.svg)](https://wakatime.com/badge/github/Skiylia-Lang/<This Repo>)
+![GitHub](https://img.shields.io/github/license/Skiylia-Lang/VerboseLang)
+[![CodeFactor](https://www.codefactor.io/repository/github/skiylia-lang/VerboseLang/badge)](https://www.codefactor.io/repository/github/skiylia-lang/VerboseLang)
+![Snyk Vulnerabilities for GitHub Repo](https://img.shields.io/snyk/vulnerabilities/github/Skiylia-Lang/VerboseLang)
+[![codecov](https://codecov.io/gh/Skiylia-Lang/VerboseLang/branch/main/graph/badge.svg?token=DRJ67ZQA7M)](https://codecov.io/gh/Skiylia-Lang/VerboseLang)
+[![time tracker](https://wakatime.com/badge/github/Skiylia-Lang/VerboseLang.svg)](https://wakatime.com/badge/github/Skiylia-Lang/VerboseLang)
 
-![GitHub language count](https://img.shields.io/github/languages/count/Skiylia-Lang/<This Repo>)
-![GitHub top language](https://img.shields.io/github/languages/top/Skiylia-Lang/<This Repo>)
-![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/Skiylia-Lang/<This Repo>)
-![Lines of code](https://img.shields.io/tokei/lines/github.com/Skiylia-Lang/<This Repo>) <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat)](#contributors)
+![GitHub language count](https://img.shields.io/github/languages/count/Skiylia-Lang/VerboseLang)
+![GitHub top language](https://img.shields.io/github/languages/top/Skiylia-Lang/VerboseLang)
+![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/Skiylia-Lang/VerboseLang)
+![Lines of code](https://img.shields.io/tokei/lines/github.com/Skiylia-Lang/VerboseLang) <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat)](#contributors)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 ## Releases
 
-![GitHub release (latest by date including pre-releases)](https://img.shields.io/github/v/release/Skiylia-Lang/<This Repo>?include_prereleases)
-![GitHub commits since latest release (by date including pre-releases)](https://img.shields.io/github/commits-since/Skiylia-Lang/<This Repo>/latest/develop?include_prereleases)
-![GitHub commit activity](https://img.shields.io/github/commit-activity/w/Skiylia-Lang/<This Repo>)
-![GitHub milestone](https://img.shields.io/github/milestones/progress/Skiylia-Lang/<This Repo>/1)
-![GitHub milestones](https://img.shields.io/github/milestones/open/Skiylia-Lang/<This Repo>)
-![GitHub issues](https://img.shields.io/github/issues-raw/Skiylia-Lang/<This Repo>)
-![GitHub pull requests](https://img.shields.io/github/issues-pr-raw/Skiylia-Lang/<This Repo>)
-![GitHub last commit](https://img.shields.io/github/last-commit/Skiylia-Lang/<This Repo>)
+![GitHub release (latest by date including pre-releases)](https://img.shields.io/github/v/release/Skiylia-Lang/VerboseLang?include_prereleases)
+![GitHub commits since latest release (by date including pre-releases)](https://img.shields.io/github/commits-since/Skiylia-Lang/VerboseLang/latest/develop?include_prereleases)
+![GitHub commit activity](https://img.shields.io/github/commit-activity/w/Skiylia-Lang/VerboseLang)
+![GitHub milestone](https://img.shields.io/github/milestones/progress/Skiylia-Lang/VerboseLang/1)
+![GitHub milestones](https://img.shields.io/github/milestones/open/Skiylia-Lang/VerboseLang)
+![GitHub issues](https://img.shields.io/github/issues-raw/Skiylia-Lang/VerboseLang)
+![GitHub pull requests](https://img.shields.io/github/issues-pr-raw/Skiylia-Lang/VerboseLang)
+![GitHub last commit](https://img.shields.io/github/last-commit/Skiylia-Lang/VerboseLang)
 
-**<This Repo>: [Latest release](../../releases)**
+**VerboseLang: [Latest release](../../releases)**
 
 Open issues can be found here: [issues](../../issues)
 
 To create an issue, be it a bug, question, feature request, or other, use this link here: [Open an issue](../../issues/new/choose)
 
-# Skiylia
+# VerboseLang
 
-<img src="https://raw.githubusercontent.com/Skiylia-Lang/skiylia-lang.github.com/7a2533a517895c08b8aa52c32396c292a0563d49/Skiylia_Logo_text.svg" width=60%/>
-
-Skiylia is dynamically typed, object oriented, and most importantly *interpreted*. While it may share many similarities with C derivatives, its heritage is definitely Pythonic.
-
-The main directory housing the <This Repo> interpreter is [here](../../tree/main/<This Repo>). Within that directory is a separate document listing the most important syntax for Skiylia.
+The main directory housing the VerboseLang software is [here](../../tree/main/VerboseLang).
 
 ## Contributing
 
@@ -64,7 +60,7 @@ All the people who have contributed ([emoji key](https://allcontributors.org/doc
 <!-- markdownlint-disable -->
 <table>
   <tr>
-    <td align="center"><a href="https://github.com/SK1Y101"><img src="https://avatars.githubusercontent.com/u/8695579?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Jack Lloyd-Walters</b></sub></a><br /><a href="https://github.com/Skiylia-Lang/<This Repo>/commits?author=SK1Y101" title="Code">💻</a> <a href="https://github.com/Skiylia-Lang/<This Repo>/pulls?q=is%3Apr+reviewed-by%3ASK1Y101" title="Reviewed Pull Requests">👀</a></td>
+    <td align="center"><a href="https://github.com/SK1Y101"><img src="https://avatars.githubusercontent.com/u/8695579?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Jack Lloyd-Walters</b></sub></a><br /><a href="https://github.com/Skiylia-Lang/VerboseLang/commits?author=SK1Y101" title="Code">💻</a> <a href="https://github.com/Skiylia-Lang/VerboseLang/pulls?q=is%3Apr+reviewed-by%3ASK1Y101" title="Reviewed Pull Requests">👀</a></td>
   </tr>
 </table>
 
