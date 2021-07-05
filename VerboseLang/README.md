@@ -17,6 +17,4 @@ To create an issue, be it a bug, question, feature request, or other, use this l
 
 # VerboseLang
 
-<img src="https://raw.githubusercontent.com/Skiylia-Lang/skiylia-lang.github.com/7a2533a517895c08b8aa52c32396c292a0563d49/Skiylia_Logo_text.svg" width=60%/>
-
 The main directory housing the VerboseLang software is [here](../../tree/main/VerboseLang).
