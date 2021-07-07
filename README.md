@@ -66,7 +66,9 @@ The main directory housing the Verboscript software is [here](../../tree/main/Ve
 
 ## Contributing
 
-Any contributions made are absolutely welcome. Checkout the issues area for any outstanding problems, or to file your own!
+Any contributions made are absolutely welcome.
+
+Checkout the issues area for any outstanding problems, or the discussions tab to discuss ideas and features.
 
 Forking this repository is an excellent way to contribute to the code that makes this project tick. Open a pull request (preferably to the develop branch) if you have anything to add, and it'll be looked over.
 
