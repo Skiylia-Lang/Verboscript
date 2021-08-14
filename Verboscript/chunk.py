@@ -17,10 +17,14 @@ def writeChunk(chunk, byte):
 
 # completely empty a chunk
 def freeChunk(chunk):
+    # while there are elements in the list
     while len(chunk) > 0:
+        # remove the last
         chunk.pop()
 
 # add a constant and its bytecode to the stack
 def addConstant(constant):
+    # write the constant opcode
     write("OP_CONSTANT")
+    # and write the constant value
     write(constant)

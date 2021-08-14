@@ -3,19 +3,20 @@
 # fetch any inbuilt python functions
 
 # fetch our code
-from OpCodes import *
 from chunk import *
+from debug import *
 
 # global variables
 
 
 # main function
 def main():
+    # testing suite
     chunk = initChunk()
     writeChunk(chunk, "OP_RETURN")
-    print(chunk)
+
+    disassembleChunk(chunk, "Test")
     freeChunk(chunk)
-    print(chunk)
     return 0
 
 main()
