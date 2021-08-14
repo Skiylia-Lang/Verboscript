@@ -10,6 +10,11 @@ from debug import *
 def main():
     # testing suite
     chunk = Chunk()
+
+    constant = addConstant(chunk, 1.5)
+    writeChunk(chunk, "OP_CONSTANT")
+    writeChunk(chunk, constant)
+    
     writeChunk(chunk, "OP_RETURN")
 
     disassembleChunk(chunk, "Test")

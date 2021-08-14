@@ -25,13 +25,25 @@ def disasembleInstruction(chunk, offset):
     instruct = chunk.code[offset]
     # check for the instruction
     if instruct in OpCodes:
-        # return the instruction
-        return simpleInstruction(instruct, offset)
+        # find the instruction type and print
+        if instruct == "OP_CONSTANT":
+            return constantInstruction(instruct, chunk, offset)
+        elif instruct == "OP_RETURN":
+            return simpleInstruction(instruct, offset)
     else:
         # otherwise show a mini error
-        print("Unknown opcode {}", instruct)
+        print("Unknown opcode {}".format(instruct))
         # increment the offset
         return offset + 1
+
+# show an instruction to store a constant to the user
+def constantInstruction(name, chunk, offset):
+    # fetch the constant value
+    const = chunk.code[offset + 1]
+    # and print
+    print("{:<16s} {:4d} {}".format(name, const, chunk.constants.values[const]))
+    # and return the offset
+    return offset + 2
 
 # show a simple instruction to the user
 def simpleInstruction(name, offset):
