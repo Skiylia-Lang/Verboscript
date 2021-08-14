@@ -6,13 +6,10 @@
 from chunk import *
 from debug import *
 
-# global variables
-
-
 # main function
 def main():
     # testing suite
-    chunk = initChunk()
+    chunk = Chunk()
     writeChunk(chunk, "OP_RETURN")
 
     disassembleChunk(chunk, "Test")

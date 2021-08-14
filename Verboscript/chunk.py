@@ -4,27 +4,33 @@
 
 # fetch our code
 from OpCodes import OpCodes
+from value import *
 
-# global variables
-
-# initialise an empty chunk
-def initChunk():
-    return list()
+# the chunk class
+class Chunk:
+    def __init__(self):
+        # the chunk begins with nothing
+        self.count = 0
+        # with an empty bytecode array
+        self.code = list()
+        # and no local constants
+        self.constants = ValueArray()
 
 # write a byte to a chunk
 def writeChunk(chunk, byte):
-    chunk.append(byte)
+    # append the byte to the chunk
+    chunk.code.append(byte)
+    # and increase the count
+    chunk.count += 1
 
 # completely empty a chunk
 def freeChunk(chunk):
-    # while there are elements in the list
-    while len(chunk) > 0:
-        # remove the last
-        chunk.pop()
+    # delete everything
+    chunk.__init__()
 
-# add a constant and its bytecode to the stack
-def addConstant(constant):
-    # write the constant opcode
-    write("OP_CONSTANT")
-    # and write the constant value
-    write(constant)
+# add a constant to a chunk
+def addConstant(chunk, value):
+    # write it to the array
+    writeValueArray(chunk.constants, value)
+    # and return the index of the constant for later use
+    return chunk.constants.count - 1

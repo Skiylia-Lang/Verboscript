@@ -5,8 +5,6 @@
 # fetch our code
 from OpCodes import OpCodes
 
-# global variables
-
 # disasemble a chunk to view all the bytecode
 def disassembleChunk(chunk, name=""):
     # print the chunk name
@@ -14,7 +12,7 @@ def disassembleChunk(chunk, name=""):
     # initialise at zero
     offset = 0
     # iterate until we reach the end of the chunk
-    while offset < len(chunk):
+    while offset < chunk.count:
         # fetch the new offset by disasembling the next instruction
         # (instructions may not all be the same length)
         offset = disasembleInstruction(chunk, offset)
@@ -24,7 +22,7 @@ def disasembleInstruction(chunk, offset):
     # print the offset number without a newline
     print("{:04d} ".format(offset), end="")
     # fetch the instruction
-    instruct = chunk[offset]
+    instruct = chunk.code[offset]
     # check for the instruction
     if instruct in OpCodes:
         # return the instruction
