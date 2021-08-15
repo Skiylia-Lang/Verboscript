@@ -27,7 +27,7 @@ def compile(source):
             # otherwise, show the carry bar
             printn("   |")
         # print the token I suppose
-        print("{:2d} '{}'".format(token.type, source[token.start: token.start+token.length]))
+        print("{:2d} '{}'".format(token.type, token.literal))
         # and check for an End of file
         if token.typeName == "TOKEN_EOF":
             break
