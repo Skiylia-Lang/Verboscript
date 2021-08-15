@@ -39,7 +39,7 @@ def disasembleInstruction(chunk, offset):
         # find the instruction type and print
         if instruct in ["OP_CONSTANT"]:
             return constantInstruction(instruct, chunk, offset)
-        elif instruct in ["OP_NEGATE", "OP_RETURN"]:
+        elif instruct in ["OP_ADD", "OP_SUBTRACT", "OP_MULTIPLY", "OP_DIVIDE", "OP_NEGATE", "OP_RETURN"]:
             return simpleInstruction(instruct, offset)
     else:
         # otherwise show a mini error

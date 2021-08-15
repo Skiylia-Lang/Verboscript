@@ -1,6 +1,7 @@
 # this will house the virtual machine that executes bytecode
 
 # fetch any inbuilt python functions
+import operator as op
 
 # fetch our code
 from chunk import *
@@ -23,20 +24,29 @@ class VM:
         # and the stack
         self.stack = list()
 
+
+# function to read the current byte, and increase the instruction pointer
+def readByte():
+    # increment the instruction pointer
+    vm.ip += 1
+    # and return the previous byte
+    return vm.chunk.code[vm.ip - 1]
+
+# function to read a constant
+def readConstant():
+    # fetch the constant id, and return the constant at that point
+    return vm.chunk.constants.values[readByte()]
+
+# function for binary operations
+def BINARY_OP(op):
+    # fetch the two operands (in reverse order because stack)
+    b = pop()
+    a = pop()
+    # and push the operation result, using the op function
+    push(op(a, b))
+
 # function to run a chunk
 def run():
-    # function to read the current byte, and increase the instruction pointer
-    def readByte():
-        # increment the instruction pointer
-        vm.ip += 1
-        # and return the previous byte
-        return vm.chunk.code[vm.ip - 1]
-
-    # function to read a constant
-    def readConstant():
-        # fetch the constant id, and return the constant at that point
-        return vm.chunk.constants.values[readByte()]
-
     #continue looping
     while True:
         # check if we are debugging stuff
@@ -59,6 +69,18 @@ def run():
                 const = readConstant()
                 # push the value to the stack
                 push(const)
+            elif instruct == "OP_ADD":
+                # do the binary operation with addition
+                BINARY_OP(op.add)
+            elif instruct == "OP_SUBTRACT":
+                # do the binary operation with addition
+                BINARY_OP(op.sub)
+            elif instruct == "OP_MULTIPLY":
+                # do the binary operation with addition
+                BINARY_OP(op.mul)
+            elif instruct == "OP_DIVIDE":
+                # do the binary operation with addition
+                BINARY_OP(op.truediv)
             elif instruct == "OP_NEGATE":
                 # fetch the value on top of the stack, negate it, and push it back
                 push(-pop())

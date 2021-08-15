@@ -7,7 +7,14 @@ from value import *
 
 # Global variables
 OpCodes = {"OP_CONSTANT",
+           # Binary operations
+           "OP_ADD",
+           "OP_SUBTRACT",
+           "OP_MULTIPLY",
+           "OP_DIVIDE",
+           # Unary operations
            "OP_NEGATE",
+           # Miscellaneous
            "OP_RETURN",
            }
 
