@@ -5,6 +5,7 @@
 # fetch our code
 from chunk import *
 from debug import *
+from vm import *
 
 # main function
 def main():
@@ -17,7 +18,7 @@ def main():
 
     writeChunk(chunk, "OP_RETURN", 123)
 
-    disassembleChunk(chunk, "Test")
+    disassembleChunk(chunk, "Test chunk")
     freeChunk(chunk)
     return 0
 
