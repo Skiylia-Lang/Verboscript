@@ -6,6 +6,7 @@ import operator as op
 # fetch our code
 from chunk import *
 from common import *
+from compiler import *
 from debug import *
 
 # Global variables
@@ -91,13 +92,10 @@ def run():
                 return "INTERPRET_OK"
 
 # interpret a chunk using the virtual machine
-def interpret(chunk):
-    # set the chunk that the vm will work on
-    vm.chunk = chunk
-    # set the instruction pointer back to zero
-    vm.ip = 0
-    # and return the execution
-    return run()
+def interpret(source):
+    # compile the source code
+    compile(source)
+    return "INTERPRET_OK"
 
 # push to the stack
 def push(value):
