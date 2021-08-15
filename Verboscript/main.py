@@ -18,6 +18,8 @@ def main():
     writeChunk(chunk, "OP_CONSTANT", 123)
     writeChunk(chunk, constant, 123)
 
+    writeChunk(chunk, "OP_NEGATE", 123)
+
     writeChunk(chunk, "OP_RETURN", 123)
 
     #show the debug info about the chunk

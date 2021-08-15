@@ -59,6 +59,9 @@ def run():
                 const = readConstant()
                 # push the value to the stack
                 push(const)
+            elif instruct == "OP_NEGATE":
+                # fetch the value on top of the stack, negate it, and push it back
+                push(-pop())
             elif instruct == "OP_RETURN":
                 # show whatever is on top of the stack for now
                 print(pop())
