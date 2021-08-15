@@ -5,6 +5,25 @@
 # fetch our code
 
 # Global variables
+tokenType = [# Single character tokens
+             "TOKEN_MINUS", "TOKEN_PLUS", "TOKEN_SLASH", "TOKEN_STAR",
+             # Literals
+             "TOKEN_NUMBER",
+             # Miscellaneous
+             "TOKEN_EOF",]
+
+# Token class
+class Token:
+    # initialisation function
+    def __init__(self, typeName, start, length, line):
+        # define the token type
+        self.type = tokenType.index(typeName)
+        self.typeName = typeName
+        # the start coordinate and length
+        self.start = start
+        self.length = length
+        # and the line that this token is found on
+        self.line = line
 
 # Lexer class
 class Lexer:

@@ -17,13 +17,12 @@ interpretResult = {"INTERPRET_OK",
 
 # define the virtual machine class
 class VM:
-    def __init__(self):
-        # store the current chunk to work on
-        self.chunk = Chunk()
-        # the instruction pointer
-        self.ip = 0
-        # and the stack
-        self.stack = list()
+    # store the current chunk to work on
+    chunk = Chunk()
+    # the instruction pointer
+    ip = 0
+    # and the stack
+    stack = list()
 
 
 # function to read the current byte, and increase the instruction pointer
