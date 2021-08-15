@@ -17,8 +17,3 @@ def writeValueArray(valueArray, value):
     valueArray.values.append(value)
     # and increase the count
     valueArray.count += 1
-
-# completely empty a valueArray
-def freeValueArray(valueArray):
-    # delete everything
-    valueArray.__init__()

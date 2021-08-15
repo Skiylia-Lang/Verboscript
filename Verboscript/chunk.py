@@ -3,7 +3,7 @@
 # fetch any inbuilt python functions
 
 # fetch our code
-from OpCodes import OpCodes
+from OpCodes import *
 from value import *
 
 # the chunk class
@@ -26,11 +26,6 @@ def writeChunk(chunk, byte, line):
     chunk.lines.append(line)
     # and increase the count
     chunk.count += 1
-
-# completely empty a chunk
-def freeChunk(chunk):
-    # delete everything
-    chunk.__init__()
 
 # add a constant to a chunk
 def addConstant(chunk, value):

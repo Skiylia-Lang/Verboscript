@@ -12,14 +12,17 @@ def main():
     # testing suite
     chunk = Chunk()
 
+    #write a chunk by hand
     constant = addConstant(chunk, 1.5)
     writeChunk(chunk, "OP_CONSTANT", 123)
     writeChunk(chunk, constant, 123)
 
     writeChunk(chunk, "OP_RETURN", 123)
 
+    #show the debug info about the chunk
     disassembleChunk(chunk, "Test chunk")
-    freeChunk(chunk)
+    # use the virtual machine to interpret a chunk
+    interpret(chunk)
     return 0
 
 main()
