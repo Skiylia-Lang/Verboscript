@@ -1,4 +1,4 @@
-# this will house the virtual machine that executes bytecode
+# this will deal with all character lexing
 
 # fetch any inbuilt python functions
 
@@ -8,6 +8,9 @@
 
 # Lexer class
 class Lexer:
+    # begins with an empty source file
+    source = ""
+    # initialisation function
     def __init__(self, start=0, current=0, line=1):
         # the starting character
         self.start = start
@@ -15,3 +18,10 @@ class Lexer:
         self.current = current
         # define the current line of source code
         self.line = line
+
+# initialise a lexer by providing source code
+def initLexer(source):
+    lexer.source = source
+
+# create our lexer
+lexer = Lexer()

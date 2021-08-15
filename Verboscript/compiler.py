@@ -10,4 +10,4 @@ from lexer import *
 # compile source code to bytecode
 def compile(source):
     #initialise our lexer
-    lexer = Lexer(source)
+    initLexer(source)
