@@ -12,8 +12,11 @@ tokenType = [# Single Character tokens
              "TOKEN_MINUS", "TOKEN_PLUS", "TOKEN_SLASH", "TOKEN_STAR",
              # Literal tokens
              "TOKEN_IDENTIFIER", "TOKEN_STRING", "TOKEN_NUMBER",
+             # Language keywords
+             "TOKEN_SHOW",
              # Miscellaneous
-             "TOKEN_ERROR", "TOKEN_EOF", "TOKEN_INDENT"]
+             "TOKEN_NEWLINE", "TOKEN_INDENT",
+             "TOKEN_ERROR", "TOKEN_EOF", ]
 
 # Token class
 class Token:
@@ -141,17 +144,21 @@ def number():
     # return the number token
     return makeToken("TOKEN_NUMBER")
 
+# check for the identifier type
+def identifierType():
+    # currently we only deal with identifiers
+    return "TOKEN_IDENTIFIER"
+
 # create an identifier token
 def identifier():
     # continue while we have Alpha Numeric characters
     while isAlphaNumeric(peek()):
         advance()
     #return the identifier
-    return makeToken("TOKEN_IDENTIFIER")
+    return makeToken(identifierType())
 
 # scan for a token
 def scanToken():
-    skipWhitespace()
     # update the start and current positions
     lexer.start = lexer.current
     # check if we are at the end of the file
@@ -167,12 +174,17 @@ def scanToken():
         return number()
     # Whitespace and return characters
     if c == " ":
+        # if we have a 4-whitespace gap
         if multimatch("   "):
+            # then make an indet token
             return makeToken("TOKEN_INDENT")
+        # otherwise skip the whitespace
     elif c == "\t":
         return makeToken("TOKEN_INDENT")
     elif c == "\n":
+        # increment the line count
         lexer.line += 1
+        return makeToken("TOKEN_NEWLINE")
     # Single width characters
     elif c == "(":
         return makeToken("TOKEN_LEFT_PAREN")
