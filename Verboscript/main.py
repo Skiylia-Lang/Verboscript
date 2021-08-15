@@ -4,6 +4,7 @@
 
 # fetch our code
 from chunk import *
+from common import *
 from debug import *
 from vm import *
 
