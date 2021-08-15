@@ -6,7 +6,6 @@
 from chunk import *
 from common import *
 from debug import *
-from OpCodes import *
 
 # Global variables
 interpretResult = {"INTERPRET_OK",
@@ -60,8 +59,6 @@ def run():
                 const = readConstant()
                 # push the value to the stack
                 push(const)
-                # and stop the loop
-                break
             elif instruct == "OP_RETURN":
                 # show whatever is on top of the stack for now
                 print(pop())

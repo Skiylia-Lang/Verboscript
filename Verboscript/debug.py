@@ -3,7 +3,7 @@
 # fetch any inbuilt python functions
 
 # fetch our code
-from OpCodes import OpCodes
+from chunk import *
 
 # print without a newline at the end
 def printn(*args):

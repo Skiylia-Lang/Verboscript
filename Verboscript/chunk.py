@@ -3,8 +3,13 @@
 # fetch any inbuilt python functions
 
 # fetch our code
-from OpCodes import *
 from value import *
+
+# Global variables
+OpCodes = {"OP_CONSTANT",
+           "OP_NEGATE",
+           "OP_RETURN",
+           }
 
 # the chunk class
 class Chunk:
