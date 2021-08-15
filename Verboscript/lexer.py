@@ -46,7 +46,16 @@ def initLexer(source):
 
 # check if a character is a digit
 def isDigit(char):
-    return (char >= "0") and (char <= "9")
+    return ("0" <= char <= "9")
+
+# check if a character is alphabetical
+def isAlpha(char):
+    # check if the character is between a and z, or is an underscore
+    return ("a" <= char.lower() <= "z") or (char == "_")
+
+# check for alphanumerics
+def isAlphaNumeric(char):
+    return ("0" <= char <= "9") or ("a" <= char.lower() <= "z") or (char == "_")
 
 # function to compute if we are at the end of the file
 def atEnd():
@@ -132,6 +141,14 @@ def number():
     # return the number token
     return makeToken("TOKEN_NUMBER")
 
+# create an identifier token
+def identifier():
+    # continue while we have Alpha Numeric characters
+    while isAlphaNumeric(peek()):
+        advance()
+    #return the identifier
+    return makeToken("TOKEN_IDENTIFIER")
+
 # scan for a token
 def scanToken():
     skipWhitespace()
@@ -142,6 +159,9 @@ def scanToken():
         return makeToken("TOKEN_EOF")
     # Check the next character
     c = advance()
+    # identifiers
+    if isAlpha(c):
+        return identifier()
     # Numbers
     if isDigit(c):
         return number()
