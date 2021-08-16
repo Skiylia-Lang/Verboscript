@@ -21,13 +21,14 @@
       "avatar_url": "https://avatars.githubusercontent.com/u/81203841?v=4",
       "profile": "https://github.com/SK2Y202",
       "contributions": [
-        "review"
+        "review",
+        "code"
       ]
     }
   ],
   "contributorsPerLine": 7,
-  "projectName": "PySkiylia",
-  "projectOwner": "SK1Y101",
+  "projectName": "Verboscript",
+  "projectOwner": "Skiylia-Lang",
   "repoType": "github",
   "repoHost": "https://github.com",
   "badgeTemplate": "[![All Contributors](https://img.shields.io/badge/all_contributors-<%= contributors.length %>-orange.svg?style=flat)](#contributors)",
