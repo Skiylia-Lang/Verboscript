@@ -17,6 +17,37 @@ Precedence = ["PREC_NONE",
               "PREC_UNARY", # -
               "PREC_PRIMARY",]
 
+Rules = {# Token: [prefix, infix, precedence]
+         "TOKEN_LEFT_PAREN":  [grouping, None,   "PREC_NONE"],
+         "TOKEN_RIGHT_PAREN": [None,     None,   "PREC_NONE"],
+         "TOKEN_COMMA":       [None,     None,   "PREC_NONE"],
+         "TOKEN_DOT":         [None,     None,   "PREC_NONE"],
+         # Operations
+         "TOKEN_MINUS":       [unary,    binary, "PREC_TERM"],
+         "TOKEN_PLUS":        [None,     binary, "PREC_TERM"],
+         "TOKEN_SLASH":       [None,     binary, "PREC_Factor"],
+         "TOKEN_STAR":        [None,     binary, "PREC_Factor"],
+         # Literals
+         "TOKEN_STRING":      [None,     None,   "PREC_NONE"],
+         "TOKEN_NUMBER":      [number,   None,   "PREC_NONE"],
+         # Keywords
+         "TOKEN_SHOW":        [None,     None,   "PREC_NONE"],
+         # Miscellaneous
+         "TOKEN_ERROR":       [None,     None,   "PREC_NONE"],
+         "TOKEN_EOF":         [None,     None,   "PREC_NONE"],
+         "TOKEN_INDENT":      [None,     None,   "PREC_NONE"],
+         "TOKEN_NEWLINE":     [None,     None,   "PREC_NONE"],
+         }
+
+# A parsing rule struct
+class ParseRule:
+    # the thing before
+    prefix = ""
+    # the thing after
+    infix = ""
+    # the precedence
+    precedence = ""
+
 # The parser struct
 class Parser:
     # store the current token
@@ -172,8 +203,30 @@ def binary():
 
 
 # deal with operations that have different precedence
-def parsePrecedence(prec):
+def parsePrecedence(precedence):
+    # fetch the next token
+    advance()
+    # fetch the prefix rule
+    prefRule = getRule(parser.previous.type)[0]
+    # if we didn't have one
+    if prefRule == None:
+        error("Expect expression")
+        return
+    # Otherwise, execute the prefix rule
+    prefRule()
+    # ensure we have a lower precedence
+    while (precedence <= getRule(parser.current.type)[2]):
+        # fetch the next token
+        advance()
+        # fetch the infix rule
+        infRule = getRule(parser.previous.type)[1]
+        # and execute it
+        infRule()
 
+# fetch the precedence rule
+def ParseRule(tokenType):
+    # return the rule given the token
+    return Rules[tokenType]
 
 # interpret a single expression
 def expression():
