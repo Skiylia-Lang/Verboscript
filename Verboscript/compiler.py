@@ -98,9 +98,55 @@ def emitBytes(*bytes):
 def emitReturn():
     emitByte("OP_RETURN")
 
+# create a constant value
+def makeConstant(value):
+    # add the constant to the chunk array
+    const = addConstant(compilingChunk, value)
+    # and return the value
+    return const
+
+# add a constant to the chunk
+def emitConstant(value):
+    # emit the bytes needed
+    emitBytes("OP_CONSTANT", makeConstant(value))
+
 # handle the safe shutdown of the compiler
 def endCompiler():
     emitReturn()
+
+# handle parentheses for groupings
+def grouping():
+    # fetch the internal expression
+    expression()
+    # and consume the closing bracket
+    consume("TOKEN_RIGHT_PAREN", "Expected ')' after expression.")
+
+# deal with numeric tokens
+def number():
+    # fetch the value
+    value = float(parser.previous.start)
+    # and emit the number into the chunk
+    emitConstant(value)
+
+# unary operations
+def unary():
+    # fetch the operation
+    optype = parser.previous.type
+    # compile the operand
+    expression()
+    # and emit the operator
+    if optype = "TOKEN_MINUS":
+        emitByte("OP_NEGATE")
+    # otherwise, nothing
+    return
+
+# deal with operations that have different precedence
+def parsePrecedence(prec):
+    
+
+# interpret a single expression
+def expression():
+
 
 # compile source code to bytecode
 def compile(source, chunk):
