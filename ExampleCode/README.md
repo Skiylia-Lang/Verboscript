@@ -9,7 +9,7 @@ Dynamically typed Object Oriented Program Language.
 [![codecov](https://codecov.io/gh/Skiylia-Lang/Verboscript/branch/main/graph/badge.svg?token=DRJ67ZQA7M)](https://codecov.io/gh/Skiylia-Lang/Verboscript)
 [![time tracker](https://wakatime.com/badge/github/Skiylia-Lang/Verboscript.svg?style=flat-square)](https://wakatime.com/badge/github/Skiylia-Lang/Verboscript)
 
-This repository folder contains examples of Skiylia-specific code, and (possibly) the equivalent in python.
+This repository folder contains examples of Verboscript-specific code, and (possibly) the equivalent in python.
 
 **Verboscript: [Latest release](../../releases)**
 
