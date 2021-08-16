@@ -104,7 +104,7 @@ def multimatch(chars):
 # function to create a token from nothing
 def makeToken(ttype):
     # grab a token using the current state of the lexer
-    return Token(ttype, lexer.source[lexer.start : lexer.current - lexer.start], lexer.line)
+    return Token(ttype, lexer.source[lexer.start : lexer.current], lexer.line)
 
 # function to create an error token
 def errorToken(message):
@@ -144,8 +144,20 @@ def number():
     # return the number token
     return makeToken("TOKEN_NUMBER")
 
+# check if a keyword matches the input
+def checkKeyword(string, token):
+    # check that the string math is the same as the lexer source at this point
+    if lexer.source[lexer.start: lexer.current] == string:
+        return token
+    # otherwise, return the default
+    return "TOKEN_IDENTIFIER"
+
 # check for the identifier type
 def identifierType():
+    # fetch the first character we are lexing
+    c = lexer.source[lexer.start]
+    if c == "s":
+        return checkKeyword("show", "TOKEN_SHOW")
     # currently we only deal with identifiers
     return "TOKEN_IDENTIFIER"
 
