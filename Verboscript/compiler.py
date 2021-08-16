@@ -183,7 +183,7 @@ def unary():
     # compile the operand as a unary
     parsePrecedence("PREC_UNARY")
     # and emit the operator
-    if optype = "TOKEN_MINUS":
+    if optype == "TOKEN_MINUS":
         emitByte("OP_NEGATE")
     # otherwise, nothing
     return
@@ -197,13 +197,13 @@ def binary():
     # sort out the precedence (binary expressions are left associative, so we ensure the precedence is one higher)
     parsePrecedence(Precedence[rule + 1])
     # and emit the operator
-    if optype = "TOKEN_PLUS":
+    if optype == "TOKEN_PLUS":
         emitByte("OP_ADD")
-    elif optype = "TOKEN_MINUS":
+    elif optype == "TOKEN_MINUS":
         emitByte("OP_SUBTRACT")
-    elif optype = "TOKEN_STAR":
+    elif optype == "TOKEN_STAR":
         emitByte("OP_MULTIPLY")
-    elif optype = "TOKEN_SLASH":
+    elif optype == "TOKEN_SLASH":
         emitByte("OP_DIVIDE")
     # otherwise, nothing
     return
