@@ -1,5 +1,5 @@
 # Verboscript
-Programming Language.
+A Plain English Programming Language.
 
 [![forthebadge](https://forthebadge.com/images/badges/made-with-python.svg)](https://forthebadge.com)
 
@@ -35,11 +35,40 @@ To create an issue, be it a bug, question, feature request, or other, use this l
 
 # Verboscript
 
+## Verbose, Verbose, Verbose
+
+The entire concept for this language is plain english representation. Anyone, irrespective of programming experience, should be able to read and understand exactly what is happening. For an example of how this can be useful, consider the following:
+
+This example in C:
+```c
+#include <stdio.h>
+for(int x = 0; x < 5; x++)
+{
+    printf(x)
+}
+```
+
+is equivalent to this example in Python:
+```python
+for x in range(0, 5):
+    print(x)
+```
+
+Which could potentially be this, in Verboscript:
+```
+start a counter at zero, then repeat the following five times:
+    show the counter
+```
+
+Each layer of abstraction becomes easier to understand in plain english, at the cost of requiring a more complicated program to execute it. Verboscript aims to be completely transparent to anyone, without requiring prior experince with programming languages.
+
 The main directory housing the Verboscript software is [here](../../tree/main/Verboscript).
 
 ## Contributing
 
-Any contributions made are absolutely welcome. Checkout the issues area for any outstanding problems, or to file your own!
+Any contributions made are absolutely welcome.
+
+Checkout the issues area for any outstanding problems, or the discussions tab to discuss ideas and features.
 
 Forking this repository is an excellent way to contribute to the code that makes this project tick. Open a pull request (preferably to the develop branch) if you have anything to add, and it'll be looked over.
 
