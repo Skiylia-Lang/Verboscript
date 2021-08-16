@@ -153,7 +153,14 @@ def emitConstant(value):
 
 # handle the safe shutdown of the compiler
 def endCompiler():
+    # emit a return byte
     emitReturn()
+    # if the compiler is emiting code
+    if DEBUG_PRINT_CODE:
+        # if we didn't have an error
+        if not parser.hadError:
+            # then show the chunk
+            disassembleChunk(compilingChunk, "Code")
 
 # handle parentheses for groupings
 def grouping():
