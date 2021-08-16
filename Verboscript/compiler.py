@@ -12,12 +12,30 @@ class Parser:
     current = ""
     # and the previous
     previous = ""
+    # an error flag
+    hadError = False
 
+# Create the parser
 parser = Parser()
 
 # show an error message
 def errorAt(token, message):
+    # show the token location
     printn("[line {}, char {}] Error".format(token.line, token.char))
+    # if we had an EOF token,
+    if token.type == "TOKEN_EOF":
+        # add the "at end to the end of the error message"
+        printn("at end")
+    elif token.type == "TOKEN_ERROR":
+        # do nothing
+        a=0
+    else:
+        # show the token literal
+        printn("at '{}',".format(token.literal))
+    # and print the message
+    print(message)
+    # and update the error flag of the parser
+    parser.hadError = True
 
 # a general error handler for the previous token
 def error(message):
