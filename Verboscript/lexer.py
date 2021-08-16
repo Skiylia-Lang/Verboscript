@@ -99,11 +99,11 @@ def multimatch(chars):
     if atEnd():
         return False
     # begin itterating through the chars
-    for x in range(len(chars)):
+    for cou, val in enumerate(chars):
         # if the current isn't what we expect
-        if atEnd(x):
+        if atEnd(cou):
             return False
-        elif lexer.source[lexer.current + x] != chars[x]:
+        elif lexer.source[lexer.current + cou] != val:
             return False
     # if it is what we expected, increment and return
     lexer.current += len(chars)
