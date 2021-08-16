@@ -14,12 +14,19 @@ class Parser:
     previous = ""
     # an error flag
     hadError = False
+    # and the panic flag
+    panicMode = False
 
 # Create the parser
 parser = Parser()
 
 # show an error message
 def errorAt(token, message):
+    # if we already had an error, don't report this one too (as it may be due to the first error, rather than an actual problem)
+    if parser.panicMode:
+        return
+    # tell the parser to panic
+    parser.panicMode = True
     # show the token location
     printn("[line {}, char {}] Error".format(token.line, token.char))
     # if we had an EOF token,
@@ -46,7 +53,6 @@ def errorAtCurrent(message):
     # show an error at the current token
     errorAt(parser.current, message)
 
-
 # advance through the token stream
 def advance():
     # update the parser start location
@@ -61,13 +67,29 @@ def advance():
         # otherwise, throw an error
         errorAtCurrent(parser.current.start)
 
+# consume the next token
+def consume(type, message):
+    # check if we have the correct token
+    if parser.current.type == type:
+        # then advance
+        advance()
+        # and exit this function
+        return
+    # otherwise, throw an error
+    errorAtCurrent(message)
+
 # compile source code to bytecode
 def compile(source, chunk):
-    #initialise our lexer
+    # initialise our lexer
     initLexer(source)
+    # clear all parser errors
+    parser.panicMode = False
+    parser.hadError = False
     # consume the first character to prime the compiler
     advance()
     # parse a single expression
     expression()
     # and consume the EOF token
     consume("TOKEN_EOF", "Expected end of expression.")
+    # and return if the parser had an error
+    return not parser.hadError
