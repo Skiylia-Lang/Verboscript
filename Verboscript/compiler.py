@@ -8,6 +8,16 @@ from chunk import *
 from lexer import initLexer, scanToken
 
 # Global variables
+
+# the precedence table
+Precedence = ["PREC_NONE",
+              "PREC_ASSIGNMENT", # =
+              "PREC_TERM", # + -
+              "PREC_FACTOR", # * /
+              "PREC_UNARY", # -
+              "PREC_PRIMARY",]
+
+# The parser struct
 class Parser:
     # store the current token
     current = ""
@@ -22,7 +32,7 @@ class Parser:
 parser = Parser()
 
 # and the compiling chunk
-globals()["compilingChunk"] = ""
+compilingChunk
 
 # show an error message
 def errorAt(token, message):
@@ -132,21 +142,42 @@ def number():
 def unary():
     # fetch the operation
     optype = parser.previous.type
-    # compile the operand
-    expression()
+    # compile the operand as a unary
+    parsePrecedence("PREC_UNARY")
     # and emit the operator
     if optype = "TOKEN_MINUS":
         emitByte("OP_NEGATE")
     # otherwise, nothing
     return
 
+# binary operations
+def binary():
+    # fetch the operation type
+    optype = parser.previous.type
+    # and the rul for the operation
+    rule = getRule(optype)
+    # sort out the precedence (binary expressions are left associative, so we ensure the precedence is one higher)
+    parsePrecedence(Precedence[rule + 1])
+    # and emit the operator
+    if optype = "TOKEN_PLUS":
+        emitByte("OP_ADD")
+    elif optype = "TOKEN_MINUS":
+        emitByte("OP_SUBTRACT")
+    elif optype = "TOKEN_STAR":
+        emitByte("OP_MULTIPLY")
+    elif optype = "TOKEN_SLASH":
+        emitByte("OP_DIVIDE")
+    # otherwise, nothing
+    return
+
+
 # deal with operations that have different precedence
 def parsePrecedence(prec):
-    
+
 
 # interpret a single expression
 def expression():
-
+    parsePrecedence("PREC_ASSIGNMENT")
 
 # compile source code to bytecode
 def compile(source, chunk):
