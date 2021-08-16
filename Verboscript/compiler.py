@@ -18,7 +18,6 @@ def compile(source):
     while True:
         # create the next token
         token = scanToken()
-        print("TOKEN:", token)
         # update the line if need be
         if token.line != line:
             # print the token line to the screen
