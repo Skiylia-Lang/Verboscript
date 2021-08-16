@@ -13,7 +13,7 @@ A Plain English Programming Language.
 ![GitHub top language](https://img.shields.io/github/languages/top/Skiylia-Lang/Verboscript)
 ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/Skiylia-Lang/Verboscript)
 ![Lines of code](https://img.shields.io/tokei/lines/github.com/Skiylia-Lang/Verboscript) <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat)](#contributors)
+[![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat)](#contributors)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 ## Releases
@@ -90,6 +90,7 @@ All the people who have contributed ([emoji key](https://allcontributors.org/doc
 <table>
   <tr>
     <td align="center"><a href="https://github.com/SK1Y101"><img src="https://avatars.githubusercontent.com/u/8695579?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Jack Lloyd-Walters</b></sub></a><br /><a href="https://github.com/Skiylia-Lang/Verboscript/commits?author=SK1Y101" title="Code">💻</a> <a href="https://github.com/Skiylia-Lang/Verboscript/pulls?q=is%3Apr+reviewed-by%3ASK1Y101" title="Reviewed Pull Requests">👀</a></td>
+    <td align="center"><a href="https://github.com/SK2Y202"><img src="https://avatars.githubusercontent.com/u/81203841?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Jack Lloyd-Walters</b></sub></a><br /><a href="https://github.com/Skiylia-Lang/Verboscript/pulls?q=is%3Apr+reviewed-by%3ASK2Y202" title="Reviewed Pull Requests">👀</a> <a href="https://github.com/Skiylia-Lang/Verboscript/commits?author=SK2Y202" title="Code">💻</a></td>
   </tr>
 </table>
 
