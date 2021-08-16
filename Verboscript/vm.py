@@ -6,6 +6,7 @@ import operator as op
 # fetch our code
 from chunk import *
 from common import *
+from compiler import *
 from debug import *
 
 # Global variables
@@ -16,13 +17,12 @@ interpretResult = {"INTERPRET_OK",
 
 # define the virtual machine class
 class VM:
-    def __init__(self):
-        # store the current chunk to work on
-        self.chunk = Chunk()
-        # the instruction pointer
-        self.ip = 0
-        # and the stack
-        self.stack = list()
+    # store the current chunk to work on
+    chunk = Chunk()
+    # the instruction pointer
+    ip = 0
+    # and the stack
+    stack = list()
 
 
 # function to read the current byte, and increase the instruction pointer
@@ -91,13 +91,10 @@ def run():
                 return "INTERPRET_OK"
 
 # interpret a chunk using the virtual machine
-def interpret(chunk):
-    # set the chunk that the vm will work on
-    vm.chunk = chunk
-    # set the instruction pointer back to zero
-    vm.ip = 0
-    # and return the execution
-    return run()
+def interpret(source):
+    # compile the source code
+    compile(source)
+    return "INTERPRET_OK"
 
 # push to the stack
 def push(value):

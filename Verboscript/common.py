@@ -6,3 +6,8 @@
 
 # global variables
 DEBUG_TRACE_EXECUTION = True
+
+# Useful functions
+# print without a newline at the end
+def printn(*args):
+    print(*args, end=" ")
