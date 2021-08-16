@@ -4,10 +4,7 @@
 
 # fetch our code
 from chunk import *
-
-# print without a newline at the end
-def printn(*args):
-    print(*args, end=" ")
+from common import *
 
 # disasemble a chunk to view all the bytecode
 def disassembleChunk(chunk, name=""):

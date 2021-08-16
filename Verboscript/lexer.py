@@ -3,6 +3,7 @@
 # fetch any inbuilt python functions
 
 # fetch our code
+from common import *
 
 # Global variables
 tokenType = [# Single Character tokens
@@ -26,7 +27,7 @@ class Token:
         self.type = tokenType.index(typeName)
         self.typeName = typeName
         # the literal token stuff
-        self.literal
+        self.literal = literal
         # and the line that this token is found on
         self.line = line
 
@@ -34,6 +35,8 @@ class Token:
 class Lexer:
     # begins with an empty source file
     source = ""
+    # which has zero length
+    sourcelen = 0
     # initialisation function
     def __init__(self, start=0, current=0, line=1):
         # the starting character
@@ -45,7 +48,10 @@ class Lexer:
 
 # initialise a lexer by providing source code
 def initLexer(source):
+    # define the source
     lexer.source = source
+    # and the source length, so we don't have to recompute it each time
+    lexer.sourcelen = len(source)
 
 # check if a character is a digit
 def isDigit(char):
@@ -61,8 +67,8 @@ def isAlphaNumeric(char):
     return ("0" <= char <= "9") or ("a" <= char.lower() <= "z") or (char == "_")
 
 # function to compute if we are at the end of the file
-def atEnd():
-    return lexer.source[lexer.current] == "\0"
+def atEnd(offset = 0):
+    return (lexer.current + offset) >= lexer.sourcelen
 
 # function to fetch the next character
 def advance():
@@ -95,11 +101,23 @@ def multimatch(chars):
     # begin itterating through the chars
     for x in range(len(chars)):
         # if the current isn't what we expect
-        if lexer.source[lexer.current + x] != chars[x]:
+        if atEnd(x):
+            return False
+        elif lexer.source[lexer.current + x] != chars[x]:
             return False
     # if it is what we expected, increment and return
     lexer.current += len(chars)
     return True
+
+# skip any whitespace that does not contribute to an indent
+def skipWhitespace():
+    if not atEnd() and (peek() == " "):
+        # if we aren't followed by three spaces
+        if not multimatch("   "):
+            # then keep going while we have spaces
+            while peek() == " ":
+                # and consume them
+                advance()
 
 # function to create a token from nothing
 def makeToken(ttype):
@@ -114,7 +132,7 @@ def errorToken(message):
 # function to return a string
 def string(quoteType='"'):
     # keep going until we find the terminating mark
-    while (peek() != quoteType) and not atEnd():
+    while not atEnd() and (peek() != quoteType):
         # if we have a newline, skip it
         if peek() == "\n":
             # increment the line counter
@@ -131,11 +149,11 @@ def string(quoteType='"'):
 # create a number token
 def number():
     # while we have digits
-    while isDigit(peek()):
+    while not atEnd() and isDigit(peek()):
         # advance
         advance()
     # if we have any allowed punctuation, and the character after is a digit too
-    if (peek() in ["."]) and isDigit(peekNext()):
+    if not atEnd() and (peek() in ["."]) and isDigit(peekNext()):
         # consume the punctuation
         advance()
         # and consume the rest of the number
@@ -171,6 +189,8 @@ def identifier():
 
 # scan for a token
 def scanToken():
+    # Skip any non-indenting whitepsace
+    skipWhitespace()
     # update the start and current positions
     lexer.start = lexer.current
     # check if we are at the end of the file

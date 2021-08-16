@@ -3,6 +3,7 @@
 # fetch any inbuilt python functions
 
 # fetch our code
+from common import *
 from value import *
 
 # Global variables

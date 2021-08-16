@@ -3,6 +3,7 @@
 # fetch any inbuilt python functions
 
 # fetch our code
+from common import *
 from lexer import *
 
 # Global variables
@@ -17,6 +18,7 @@ def compile(source):
     while True:
         # create the next token
         token = scanToken()
+        print("TOKEN:", token)
         # update the line if need be
         if token.line != line:
             # print the token line to the screen
@@ -27,7 +29,7 @@ def compile(source):
             # otherwise, show the carry bar
             printn("   |")
         # print the token I suppose
-        print("{:2d} '{}'".format(token.type, token.literal))
+        print("{:2d} '{}', '{}'".format(token.type, token.literal, token.typeName))
         # and check for an End of file
         if token.typeName == "TOKEN_EOF":
             break
