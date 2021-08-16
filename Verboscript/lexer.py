@@ -78,8 +78,11 @@ def advance():
     return lexer.source[lexer.current - 1]
 
 # function to peek a the next character without consuming it
-def peek():
-    return lexer.source[lexer.current]
+def peek(offset = 0):
+    #print(lexer.current, offset)
+    if atEnd(offset):
+        return "\0"
+    return lexer.source[lexer.current + offset]
 
 # function to see if the expected character apears
 def match(exp):
@@ -96,14 +99,11 @@ def match(exp):
 # function to match multiple
 def multimatch(chars):
     # check we aren't at the end of the file
-    if atEnd():
+    if atEnd(len(chars)):
         return False
     # begin itterating through the chars
     for cou, val in enumerate(chars):
-        # if the current isn't what we expect
-        if atEnd(cou):
-            return False
-        elif lexer.source[lexer.current + cou] != val:
+        if lexer.source[lexer.current + cou] != val:
             return False
     # if it is what we expected, increment and return
     lexer.current += len(chars)
@@ -111,13 +111,16 @@ def multimatch(chars):
 
 # skip any whitespace that does not contribute to an indent
 def skipWhitespace():
-    if not atEnd() and (peek() == " "):
-        # if we aren't followed by three spaces
-        if not multimatch("   "):
-            # then keep going while we have spaces
-            while peek() == " ":
-                # and consume them
-                advance()
+    # keep looping
+    while True:
+        # if the current character is a space
+        if peek() == " ":
+            # consume it
+            advance()
+            # and start the loop again
+            continue
+        # otherwise, stop
+        return
 
 # function to create a token from nothing
 def makeToken(ttype):
@@ -149,11 +152,11 @@ def string(quoteType='"'):
 # create a number token
 def number():
     # while we have digits
-    while not atEnd() and isDigit(peek()):
+    while isDigit(peek()):
         # advance
         advance()
     # if we have any allowed punctuation, and the character after is a digit too
-    if not atEnd() and (peek() in ["."]) and isDigit(peekNext()):
+    if (peek() in ["."]) and isDigit(peek(1)):
         # consume the punctuation
         advance()
         # and consume the rest of the number
@@ -204,14 +207,8 @@ def scanToken():
     # Numbers
     if isDigit(c):
         return number()
-    # Whitespace and return characters
-    if c == " ":
-        # if we have a 4-whitespace gap
-        if multimatch("   "):
-            # then make an indet token
-            return makeToken("TOKEN_INDENT")
-        # otherwise skip the whitespace
-    elif c == "\t":
+    # indent and return characters
+    if c == "\t":
         return makeToken("TOKEN_INDENT")
     elif c == "\n":
         # increment the line count
