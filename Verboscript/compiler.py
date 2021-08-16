@@ -4,6 +4,7 @@
 
 # fetch our code
 from common import printn
+from chunk import *
 from lexer import initLexer, scanToken
 
 # Global variables
@@ -19,6 +20,9 @@ class Parser:
 
 # Create the parser
 parser = Parser()
+
+# and the compiling chunk
+globals()["compilingChunk"] = ""
 
 # show an error message
 def errorAt(token, message):
@@ -78,10 +82,32 @@ def consume(type, message):
     # otherwise, throw an error
     errorAtCurrent(message)
 
+# emit a byte into the current chunk
+def emitByte(byte):
+    # write the byte to the compiling chunk
+    writeChunk(compilingChunk, byte, parser.previous.line, parser.previous.char)
+
+# emit multiple bytes
+def emitBytes(*bytes):
+    # iterate through the supplied bytes
+    for byte in bytes:
+        # and emit each one
+        emitByte(byte)
+
+# emit a return byte
+def emitReturn():
+    emitByte("OP_RETURN")
+
+# handle the safe shutdown of the compiler
+def endCompiler():
+    emitReturn()
+
 # compile source code to bytecode
 def compile(source, chunk):
     # initialise our lexer
     initLexer(source)
+    # and update the current chunk we are compiling
+    compilingChunk = chunk
     # clear all parser errors
     parser.panicMode = False
     parser.hadError = False
@@ -91,5 +117,7 @@ def compile(source, chunk):
     expression()
     # and consume the EOF token
     consume("TOKEN_EOF", "Expected end of expression.")
+    # end the compilers process
+    endCompiler()
     # and return if the parser had an error
     return not parser.hadError

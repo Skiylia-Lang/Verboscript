@@ -25,17 +25,19 @@ class Chunk:
     count = 0
     # with an empty bytecode array
     code = list()
-    # and no line information
+    # and no position information
     lines = list()
+    chars = list()
     # and no local constants
     constants = ValueArray()
 
 # write a byte to a chunk
-def writeChunk(chunk, byte, line):
+def writeChunk(chunk, byte, line, char=0):
     # append the byte to the chunk
     chunk.code.append(byte)
-    # add its line information
+    # add its position information
     chunk.lines.append(line)
+    chunk.chars.append(char)
     # and increase the count
     chunk.count += 1
 
