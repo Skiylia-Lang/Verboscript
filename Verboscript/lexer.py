@@ -22,14 +22,15 @@ tokenType = [# Single Character tokens
 # Token class
 class Token:
     # initialisation function
-    def __init__(self, typeName, literal, line):
+    def __init__(self, typeName, literal, line, char=0):
         # define the token type
         self.type = tokenType.index(typeName)
         self.typeName = typeName
         # the literal token stuff
         self.literal = literal
-        # and the line that this token is found on
+        # and location that this token is found at
         self.line = line
+        self.char = char
 
 # Lexer class
 class Lexer:
@@ -38,13 +39,14 @@ class Lexer:
     # which has zero length
     sourcelen = 0
     # initialisation function
-    def __init__(self, start=0, current=0, line=1):
+    def __init__(self, start=0, current=0, line=1, char=1):
         # the starting character
         self.start = start
         # the current character
         self.current = current
-        # define the current line of source code
+        # define the current line and character location of source code
         self.line = line
+        self.char = char
 
 # initialise a lexer by providing source code
 def initLexer(source):
@@ -74,6 +76,7 @@ def atEnd(offset = 0):
 def advance():
     # increment the current position
     lexer.current += 1
+    lexer.char += 1
     # and return the previous character
     return lexer.source[lexer.current - 1]
 
@@ -138,8 +141,9 @@ def string(quoteType='"'):
     while not atEnd() and (peek() != quoteType):
         # if we have a newline, skip it
         if peek() == "\n":
-            # increment the line counter
+            # increment the line count, and reset the character count
             lexer.line += 1
+            lexer.char = 1
         # and advance to the next token
         advance()
     # if we hit the end, we need an error
@@ -211,8 +215,9 @@ def scanToken():
     if c == "\t":
         return makeToken("TOKEN_INDENT")
     elif c == "\n":
-        # increment the line count
+        # increment the line count, and reset the character count
         lexer.line += 1
+        lexer.char = 1
         return makeToken("TOKEN_NEWLINE")
     # Single width characters
     elif c == "(":
