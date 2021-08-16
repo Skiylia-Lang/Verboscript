@@ -92,9 +92,18 @@ def run():
 
 # interpret a chunk using the virtual machine
 def interpret(source):
-    # compile the source code
-    compile(source)
-    return "INTERPRET_OK"
+    # create an empty chunk
+    chunk = Chunk()
+    # attempt to compile
+    if not compile(source, chunk):
+        # if it failed, throw an error
+        return "INTERPRET_COMPILE_ERROR"
+    # otherwise
+    vm.chunk = chunk
+    # fetch the result
+    result = run()
+    # and return it
+    return result
 
 # push to the stack
 def push(value):
