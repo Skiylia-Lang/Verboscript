@@ -128,7 +128,7 @@ def skipWhitespace():
 # function to create a token from nothing
 def makeToken(ttype):
     # grab a token using the current state of the lexer
-    return Token(ttype, lexer.source[lexer.start : lexer.current], lexer.line, lexer.char)
+    return Token(ttype, lexer.source[lexer.start : lexer.current], lexer.line, lexer.char - (lexer.current - lexer.start))
 
 # function to create an error token
 def errorToken(message):

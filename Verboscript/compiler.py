@@ -17,37 +17,6 @@ Precedence = ["PREC_NONE",
               "PREC_UNARY", # -
               "PREC_PRIMARY",]
 
-Rules = {# Token: [prefix, infix, precedence]
-         "TOKEN_LEFT_PAREN":  [grouping, None,   "PREC_NONE"],
-         "TOKEN_RIGHT_PAREN": [None,     None,   "PREC_NONE"],
-         "TOKEN_COMMA":       [None,     None,   "PREC_NONE"],
-         "TOKEN_DOT":         [None,     None,   "PREC_NONE"],
-         # Operations
-         "TOKEN_MINUS":       [unary,    binary, "PREC_TERM"],
-         "TOKEN_PLUS":        [None,     binary, "PREC_TERM"],
-         "TOKEN_SLASH":       [None,     binary, "PREC_Factor"],
-         "TOKEN_STAR":        [None,     binary, "PREC_Factor"],
-         # Literals
-         "TOKEN_STRING":      [None,     None,   "PREC_NONE"],
-         "TOKEN_NUMBER":      [number,   None,   "PREC_NONE"],
-         # Keywords
-         "TOKEN_SHOW":        [None,     None,   "PREC_NONE"],
-         # Miscellaneous
-         "TOKEN_ERROR":       [None,     None,   "PREC_NONE"],
-         "TOKEN_EOF":         [None,     None,   "PREC_NONE"],
-         "TOKEN_INDENT":      [None,     None,   "PREC_NONE"],
-         "TOKEN_NEWLINE":     [None,     None,   "PREC_NONE"],
-         }
-
-# A parsing rule struct
-class ParseRule:
-    # the thing before
-    prefix = ""
-    # the thing after
-    infix = ""
-    # the precedence
-    precedence = ""
-
 # The parser struct
 class Parser:
     # store the current token
@@ -63,7 +32,7 @@ class Parser:
 parser = Parser()
 
 # and the compiling chunk
-compilingChunk
+compilingChunk = Chunk()
 
 # show an error message
 def errorAt(token, message):
@@ -75,10 +44,10 @@ def errorAt(token, message):
     # show the token location
     printn("[line {}, char {}] Error".format(token.line, token.char))
     # if we had an EOF token,
-    if token.type == "TOKEN_EOF":
+    if token.typeName == "TOKEN_EOF":
         # add the "at end to the end of the error message"
         printn("at end")
-    elif token.type == "TOKEN_ERROR":
+    elif token.typeName == "TOKEN_ERROR":
         # do nothing
         a=0
     else:
@@ -107,15 +76,15 @@ def advance():
         #fetch the next token
         parser.current = scanToken()
         # check we don't have an error
-        if parser.current.type != "TOKEN_ERROR":
+        if parser.current.typeName != "TOKEN_ERROR":
             break
         # otherwise, throw an error
         errorAtCurrent(parser.current.start)
 
 # consume the next token
-def consume(type, message):
+def consume(typeName, message):
     # check if we have the correct token
-    if parser.current.type == type:
+    if parser.current.typeName == typeName:
         # then advance
         advance()
         # and exit this function
@@ -179,7 +148,7 @@ def number():
 # unary operations
 def unary():
     # fetch the operation
-    optype = parser.previous.type
+    optype = parser.previous.typeName
     # compile the operand as a unary
     parsePrecedence("PREC_UNARY")
     # and emit the operator
@@ -191,7 +160,7 @@ def unary():
 # binary operations
 def binary():
     # fetch the operation type
-    optype = parser.previous.type
+    optype = parser.previous.typeName
     # and the rul for the operation
     rule = getRule(optype)
     # sort out the precedence (binary expressions are left associative, so we ensure the precedence is one higher)
@@ -208,13 +177,39 @@ def binary():
     # otherwise, nothing
     return
 
+# interpret a single expression
+def expression():
+    parsePrecedence("PREC_ASSIGNMENT")
+
+# Precedence rules table
+Rules = {# Token: [prefix, infix, precedence]
+         "TOKEN_LEFT_PAREN":  [grouping, None,   "PREC_NONE"],
+         "TOKEN_RIGHT_PAREN": [None,     None,   "PREC_NONE"],
+         "TOKEN_COMMA":       [None,     None,   "PREC_NONE"],
+         "TOKEN_DOT":         [None,     None,   "PREC_NONE"],
+         # Operations
+         "TOKEN_MINUS":       [unary,    binary, "PREC_TERM"],
+         "TOKEN_PLUS":        [None,     binary, "PREC_TERM"],
+         "TOKEN_SLASH":       [None,     binary, "PREC_Factor"],
+         "TOKEN_STAR":        [None,     binary, "PREC_Factor"],
+         # Literals
+         "TOKEN_STRING":      [None,     None,   "PREC_NONE"],
+         "TOKEN_NUMBER":      [number,   None,   "PREC_NONE"],
+         # Keywords
+         "TOKEN_SHOW":        [None,     None,   "PREC_NONE"],
+         # Miscellaneous
+         "TOKEN_ERROR":       [None,     None,   "PREC_NONE"],
+         "TOKEN_EOF":         [None,     None,   "PREC_NONE"],
+         "TOKEN_INDENT":      [None,     None,   "PREC_NONE"],
+         "TOKEN_NEWLINE":     [None,     None,   "PREC_NONE"],
+         }
 
 # deal with operations that have different precedence
 def parsePrecedence(precedence):
     # fetch the next token
     advance()
     # fetch the prefix rule
-    prefRule = getRule(parser.previous.type)[0]
+    prefRule = getRule(parser.previous.typeName)[0]
     # if we didn't have one
     if prefRule == None:
         error("Expect expression")
@@ -222,22 +217,18 @@ def parsePrecedence(precedence):
     # Otherwise, execute the prefix rule
     prefRule()
     # ensure we have a lower precedence
-    while (precedence <= getRule(parser.current.type)[2]):
+    while (precedence <= getRule(parser.current.typeName)[2]):
         # fetch the next token
         advance()
         # fetch the infix rule
-        infRule = getRule(parser.previous.type)[1]
+        infRule = getRule(parser.previous.typeName)[1]
         # and execute it
         infRule()
 
 # fetch the precedence rule
-def ParseRule(tokenType):
+def getRule(token):
     # return the rule given the token
-    return Rules[tokenType]
-
-# interpret a single expression
-def expression():
-    parsePrecedence("PREC_ASSIGNMENT")
+    return Rules[token]
 
 # compile source code to bytecode
 def compile(source, chunk):
