@@ -50,6 +50,8 @@ class Lexer:
 
 # initialise a lexer by providing source code
 def initLexer(source):
+    # restart the lexer
+    lexer.__init__()
     # define the source
     lexer.source = source
     # and the source length, so we don't have to recompute it each time

@@ -24,7 +24,6 @@ class VM:
     # and the stack
     stack = list()
 
-
 # function to read the current byte, and increase the instruction pointer
 def readByte():
     # increment the instruction pointer
@@ -47,12 +46,12 @@ def BINARY_OP(op):
 
 # function to run a chunk
 def run():
+    if DEBUG_TRACE_EXECUTION:
+        print("\n== {} ==".format("Code Execution"))
     #continue looping
     while True:
         # check if we are debugging stuff
         if DEBUG_TRACE_EXECUTION:
-            # print a large empty slot
-            printn(" "*10)
             # iterate through and print the stack
             for x in vm.stack:
                 printn("[ {} ]".format(x))
