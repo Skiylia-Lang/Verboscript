@@ -17,13 +17,18 @@ interpretResult = {"INTERPRET_OK",
 
 # define the virtual machine class
 class VM:
-    # store the current chunk to work on
-    chunk = Chunk()
-    # the instruction pointer
-    ip = 0
-    # and the stack
-    stack = list()
+    def __init__(self, chunk):
+        # store the current chunk to work on
+        self.chunk = chunk
+        # the instruction pointer
+        self.ip = 0
+        # and the stack
+        self.stack = list()
 
+def initVM(chunk=""):
+    if not chunk:
+        chunk = Chunk()
+    vm.__init__(chunk)
 
 # function to read the current byte, and increase the instruction pointer
 def readByte():
@@ -47,17 +52,20 @@ def BINARY_OP(op):
 
 # function to run a chunk
 def run():
+    if DEBUG_TRACE_EXECUTION:
+        print("\n== {} ==".format("Code Execution"))
     #continue looping
     while True:
         # check if we are debugging stuff
         if DEBUG_TRACE_EXECUTION:
-            # print a large empty slot
-            printn(" "*10)
-            # iterate through and print the stack
-            for x in vm.stack:
-                printn("[ {} ]".format(x))
-            # and show a default print
-            print()
+            if vm.stack:
+                # print a blank space and clarifier
+                printn("   stack:")
+                # iterate through and print the stack
+                for x in vm.stack:
+                    printn("[ {} ]".format(x))
+                # and show a default print to get onto a newline
+                print()
             # and disasemble each instruction
             disasembleInstruction(vm.chunk, vm.ip)
         # fetch the instruction
@@ -92,9 +100,18 @@ def run():
 
 # interpret a chunk using the virtual machine
 def interpret(source):
-    # compile the source code
-    compile(source)
-    return "INTERPRET_OK"
+    # create an empty chunk
+    chunk = Chunk()
+    # attempt to compile
+    if not compile(source, chunk):
+        # if it failed, throw an error
+        return "INTERPRET_COMPILE_ERROR"
+    # otherwise, start the compilation
+    initVM(chunk)
+    # fetch the result
+    result = run()
+    # and return it
+    return result
 
 # push to the stack
 def push(value):
@@ -105,4 +122,4 @@ def pop():
     return vm.stack.pop()
 
 # and create the virtual machine
-vm = VM()
+vm = VM(Chunk())
