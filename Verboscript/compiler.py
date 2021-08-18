@@ -262,6 +262,5 @@ def compile(source, chunk):
     # and return if the parser had an error
     return not parser.hadError
 
-
 # create the parser
 parser = Parser()
