@@ -153,7 +153,7 @@ def number():
     # fetch the value
     value = float(parser.previous.literal)
     # and emit the number into the chunk
-    emitConstant(value)
+    emitConstant(numVal(value))
 
 # unary operations
 def unary():

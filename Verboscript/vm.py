@@ -25,6 +25,16 @@ class VM:
         # and the stack
         self.stack = list()
 
+# show an error message
+def runtimeError(format, *args):
+    # fetch the current token responsibe
+    token = vm.chunk.code[vm.ip - 1]
+    # and print an error message
+    print("[line {}, char {}] Error".format(token.line, token.char))
+    # reset the vm stack
+    vm.stack = list()
+
+# startup the vm
 def initVM(chunk=""):
     if not chunk:
         chunk = Chunk()
@@ -90,8 +100,12 @@ def run():
                 # do the binary operation with addition
                 BINARY_OP(op.truediv)
             elif instruct == "OP_NEGATE":
+                # ensure we have a Number
+                if not isNum(peek(0)):
+                    runtimeError("Operand must be a number.")
+                    return "INTERPRET_RUNTIME_ERROR"
                 # fetch the value on top of the stack, negate it, and push it back
-                push(-pop())
+                push(numVal(-asNum(pop())))
             elif instruct == "OP_RETURN":
                 # show whatever is on top of the stack for now
                 print(pop())
@@ -120,6 +134,10 @@ def push(value):
 # and pop from the stack
 def pop():
     return vm.stack.pop()
+
+# peek at the top of the stack without removing or adding information
+def peek(dist=0):
+    return vm.stack[-int(1+dist)]
 
 # and create the virtual machine
 vm = VM(Chunk())

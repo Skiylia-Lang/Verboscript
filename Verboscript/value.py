@@ -12,9 +12,9 @@ valueType = ["VAL_BOOL",
 
 # the base class that represents a value
 class Value():
-    def __init__(self, value=None):
+    def __init__(self, valueType="VAL_NONE", value=None):
         # the value starts as null
-        self.valueType = "VAL_NONE"
+        self.valueType = valueType
         self.value = value
 
 # the constant class
@@ -25,12 +25,24 @@ class ValueArray:
         self.values = list()
 
 # create a number
-def asNum(value):
-    return Value(float(value))
+def numVal(value):
+    return Value("VAL_NUMBER", value)
 
 # create a boolean
+def boolVal(value):
+    return Value("VAL_BOOL", value)
+
+# create a number
+def noneVal(value):
+    return Value("VAL_NONE", None)
+
+# return as a number
+def asNum(value):
+    return float(value.value)
+
+# return as a boolean
 def asBool(value):
-    return Value(bool(value))
+    return bool(value.value)
 
 # Check if a value has a certain typing
 def isNum(value):
