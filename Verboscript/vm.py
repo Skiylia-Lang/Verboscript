@@ -28,11 +28,11 @@ class VM:
 # show an error message
 def runtimeError(format, *args):
     # fetch the current token responsibe
-    token = vm.chunk.code[vm.ip - 1]
+    line, char = vm.chunk.lines[vm.ip - 1], vm.chunk.chars[vm.ip - 1]
     # and print an error message
-    print("[line {}, char {}] Error".format(token.line, token.char))
+    print("[line {}, char {}] Error".format(line, char))
     # reset the vm stack
-    vm.stack = list()
+    #vm.stack = list()
 
 # startup the vm
 def initVM(chunk=""):
@@ -91,6 +91,15 @@ def run():
                 const = readConstant()
                 # push the value to the stack
                 push(const)
+            elif instruct == "OP_NONE":
+                # push none to the stack
+                push(noneVal())
+            elif instruct == "OP_FALSE":
+                # push false to the stack
+                push(boolVal(False))
+            elif instruct == "OP_TRUE":
+                # push true to the stack
+                push(boolVal(True))
             elif instruct == "OP_ADD":
                 # do the binary operation with addition
                 BINARY_OP(numVal, op.add)

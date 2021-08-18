@@ -14,7 +14,7 @@ tokenType = [# Single Character tokens
              # Literal tokens
              "TOKEN_IDENTIFIER", "TOKEN_STRING", "TOKEN_NUMBER",
              # Language keywords
-             "TOKEN_SHOW",
+             "TOKEN_FALSE", "TOKEN_NONE", "TOKEN_SHOW", "TOKEN_TRUE",
              # Miscellaneous
              "TOKEN_NEWLINE", "TOKEN_INDENT",
              "TOKEN_ERROR", "TOKEN_EOF", ]
@@ -183,8 +183,25 @@ def checkKeyword(string, token):
 def identifierType():
     # fetch the first character we are lexing
     c = lexer.source[lexer.start]
-    if c == "s":
+    #check for tokens by matching their strings
+    if c == "a":
+        return checkKeyword("add", "TOKEN_PLUS")
+    elif c == "f":
+        return checkKeyword("false", "TOKEN_FALSE")
+    elif c == "m":
+        return checkKeyword("minus", "TOKEN_MINUS")
+    elif c == "n":
+        return checkKeyword("none", "TOKEN_NONE")
+    elif c == "o":
+        return checkKeyword("over", "TOKEN_SLASH")
+    elif c == "s":
         return checkKeyword("show", "TOKEN_SHOW")
+    elif c == "t":
+        nxt = lexer.source[lexer.start + 1]
+        if nxt == "r":
+            return checkKeyword("true", "TOKEN_TRUE")
+        elif nxt == "i":
+            return checkKeyword("times", "TOKEN_STAR")
     # currently we only deal with identifiers
     return "TOKEN_IDENTIFIER"
 

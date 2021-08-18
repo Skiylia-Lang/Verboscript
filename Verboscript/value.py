@@ -33,7 +33,7 @@ def boolVal(value):
     return Value("VAL_BOOL", value)
 
 # create a number
-def noneVal(value):
+def noneVal():
     return Value("VAL_NONE", None)
 
 # return as a number
@@ -57,8 +57,15 @@ def isNone(value):
     return value.valueType == "VAL_NONE"
 
 # extract a numerical value
-def formatValue(value, valTy=asNum):
-    return valTy(value)
+def formatValue(value):
+    # fetch the value type
+    valtype = value.valueType
+    if valtype == "VAL_BOOL":
+        return "true" if asBool(value) else "false"
+    elif valtype == "VAL_NONE":
+        return "None"
+    elif valtype == "VAL_NUMBER":
+        return asNum(value)
 
 # write a value to a valueArray
 def writeValueArray(valueArray, value):

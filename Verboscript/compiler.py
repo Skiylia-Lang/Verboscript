@@ -187,6 +187,19 @@ def binary():
     # otherwise, nothing
     return
 
+def literal():
+    # fetch the operation type
+    optype = parser.previous.typeName
+    # and emit the correct byte
+    if optype == "TOKEN_FALSE":
+        emitByte("OP_FALSE")
+    elif optype == "TOKEN_NONE":
+        emitByte("OP_NONE")
+    elif optype == "TOKEN_TRUE":
+        emitByte("OP_TRUE")
+    # otherwise, nothing
+    return
+
 # interpret a single expression
 def expression():
     parsePrecedence("PREC_ASSIGNMENT")
@@ -206,7 +219,10 @@ Rules = {# Token: [prefix, infix, precedence]
          "TOKEN_STRING":      parseRule(None,     None,   "PREC_NONE"),
          "TOKEN_NUMBER":      parseRule(number,   None,   "PREC_NONE"),
          # Keywords
+         "TOKEN_FALSE":       parseRule(literal,  None,   "PREC_NONE"),
+         "TOKEN_NONE":        parseRule(literal,  None,   "PREC_NONE"),
          "TOKEN_SHOW":        parseRule(None,     None,   "PREC_NONE"),
+         "TOKEN_TRUE":        parseRule(literal,  None,   "PREC_NONE"),
          # Miscellaneous
          "TOKEN_ERROR":       parseRule(None,     None,   "PREC_NONE"),
          "TOKEN_EOF":         parseRule(None,     None,   "PREC_NONE"),

@@ -8,6 +8,10 @@ from value import *
 
 # Global variables
 OpCodes = {"OP_CONSTANT",
+           # Booleans
+           "OP_TRUE",
+           "OP_FALSE",
+           "OP_NONE",
            # Binary operations
            "OP_ADD",
            "OP_SUBTRACT",
