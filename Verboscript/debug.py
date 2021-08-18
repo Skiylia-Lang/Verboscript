@@ -49,7 +49,7 @@ def constantInstruction(name, chunk, offset):
     # fetch the constant value
     const = chunk.code[offset + 1]
     # and print
-    print("{:<16s} {:4d} '{}'".format(name, const, chunk.constants.values[const]))
+    print("{:<16s} {:4d} '{}'".format(name, const, formatValue(chunk.constants.values[const])))
     # and return the offset
     return offset + 2
 

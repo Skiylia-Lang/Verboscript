@@ -77,7 +77,7 @@ def run():
                 printn("   stack:")
                 # iterate through and print the stack
                 for x in vm.stack:
-                    printn("[ {} ]".format(x))
+                    printn("[ {} ]".format(formatValue(x)))
                 # and show a default print to get onto a newline
                 print()
             # and disasemble each instruction
@@ -112,7 +112,7 @@ def run():
                 push(numVal(-asNum(pop())))
             elif instruct == "OP_RETURN":
                 # show whatever is on top of the stack for now
-                print(pop())
+                print(formatValue(pop()))
                 # and return an interpret okay message
                 return "INTERPRET_OK"
 

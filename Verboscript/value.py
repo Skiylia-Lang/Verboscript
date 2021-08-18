@@ -56,6 +56,10 @@ def isBool(value):
 def isNone(value):
     return value.valueType == "VAL_NONE"
 
+# extract a numerical value
+def formatValue(value, valTy=asNum):
+    return valTy(value)
+
 # write a value to a valueArray
 def writeValueArray(valueArray, value):
     # append the byte to the chunk
