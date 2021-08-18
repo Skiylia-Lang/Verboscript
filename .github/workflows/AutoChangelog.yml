@@ -1,0 +1,2 @@
+- name: Auto Changelog
+  uses: ardalanamini/auto-changelog@v1.1.0
