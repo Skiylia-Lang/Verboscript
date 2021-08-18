@@ -53,12 +53,16 @@ def readConstant():
     return vm.chunk.constants.values[readByte()]
 
 # function for binary operations
-def BINARY_OP(op):
+def BINARY_OP(valueType, op):
+    # check if we have two numbers on top of the stack
+    if (not isNum(peek(0))) or (not isNum(peek(1))):
+        runtimeError("Operands must be numbers.")
+        return "INTERPRET_RUNTIME_ERROR"
     # fetch the two operands (in reverse order because stack)
-    b = pop()
-    a = pop()
+    b = asNum(pop())
+    a = asNum(pop())
     # and push the operation result, using the op function
-    push(op(a, b))
+    push(valueType(op(a, b)))
 
 # function to run a chunk
 def run():
@@ -89,16 +93,16 @@ def run():
                 push(const)
             elif instruct == "OP_ADD":
                 # do the binary operation with addition
-                BINARY_OP(op.add)
+                BINARY_OP(numVal, op.add)
             elif instruct == "OP_SUBTRACT":
                 # do the binary operation with addition
-                BINARY_OP(op.sub)
+                BINARY_OP(numVal, op.sub)
             elif instruct == "OP_MULTIPLY":
                 # do the binary operation with addition
-                BINARY_OP(op.mul)
+                BINARY_OP(numVal, op.mul)
             elif instruct == "OP_DIVIDE":
                 # do the binary operation with addition
-                BINARY_OP(op.truediv)
+                BINARY_OP(numVal, op.truediv)
             elif instruct == "OP_NEGATE":
                 # ensure we have a Number
                 if not isNum(peek(0)):
