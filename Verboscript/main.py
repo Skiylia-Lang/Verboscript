@@ -58,7 +58,10 @@ def runFile(path):
 
 # main function
 def main(*args):
+    # set the argument length
     argc = len(args)
+    # spin up the vm
+    initVM()
     #check if any arguments were passed
     if argc == 1:
         repl()

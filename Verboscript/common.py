@@ -5,6 +5,7 @@
 # fetch our code
 
 # global variables
+DEBUG_PRINT_CODE = True
 DEBUG_TRACE_EXECUTION = True
 
 # Useful functions
