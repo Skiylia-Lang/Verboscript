@@ -34,10 +34,6 @@ class Token:
 
 # Lexer class
 class Lexer:
-    # begins with an empty source file
-    source = ""
-    # which has zero length
-    sourcelen = 0
     # initialisation function
     def __init__(self, start=0, current=0, line=1, char=1):
         # the starting character
@@ -47,6 +43,10 @@ class Lexer:
         # define the current line and character location of source code
         self.line = line
         self.char = char
+        # begins with an empty source file
+        source = ""
+        # which has zero length
+        sourcelen = 0
 
 # initialise a lexer by providing source code
 def initLexer(source):

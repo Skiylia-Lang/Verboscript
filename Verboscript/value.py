@@ -7,9 +7,10 @@ from common import *
 
 # the constant class
 class ValueArray:
-    # the valueArray begins with nothing
-    count = 0
-    values = list()
+    def __init__(self):
+        # the valueArray begins with nothing
+        self.count = 0
+        self.values = list()
 
 # write a value to a valueArray
 def writeValueArray(valueArray, value):

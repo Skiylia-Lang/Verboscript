@@ -21,15 +21,16 @@ OpCodes = {"OP_CONSTANT",
 
 # the chunk class
 class Chunk:
-    # the chunk begins with nothing
-    count = 0
-    # with an empty bytecode array
-    code = list()
-    # and no position information
-    lines = list()
-    chars = list()
-    # and no local constants
-    constants = ValueArray()
+    def __init__(self):
+        # the chunk begins with nothing
+        self.count = 0
+        # with an empty bytecode array
+        self.code = list()
+        # and no position information
+        self.lines = list()
+        self.chars = list()
+        # and no local constants
+        self.constants = ValueArray()
 
 # write a byte to a chunk
 def writeChunk(chunk, byte, line, char=0):

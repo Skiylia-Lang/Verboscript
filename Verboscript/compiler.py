@@ -27,7 +27,7 @@ class parseRule:
 
 # The parser struct
 class Parser:
-    def __init__(self, chunk):
+    def __init__(self):
         # store the current token
         self.current = ""
         # and the previous
@@ -37,11 +37,12 @@ class Parser:
         # and the panic flag
         self.panicMode = False
         # and the currently compiling chunk
-        self.compilingChunk = chunk
+        self.compilingChunk = Chunk()
 
 # restart the parser
 def initParser(chunk):
-    parser.__init__(chunk)
+    parser.__init__()
+    parser.compilingChunk = chunk
 
 # show an error message
 def errorAt(token, message):
@@ -84,7 +85,6 @@ def advance():
     while True:
         #fetch the next token
         parser.current = scanToken()
-        print(parser.current.typeName)
         # check we don't have an error
         if parser.current.typeName != "TOKEN_ERROR":
             break
@@ -94,7 +94,6 @@ def advance():
 # consume the next token
 def consume(typeName, message):
     # check if we have the correct token
-    print("current sonsume", parser.current.typeName)
     if parser.current.typeName == typeName:
         # then advance
         advance()
@@ -222,7 +221,7 @@ def parsePrecedence(precedence):
     # fetch the prefix rule
     prefRule = getRule(parser.previous.typeName).prefix
     # if we didn't have one
-    if prefRule == None:
+    if not prefRule:
         error("Expect expression")
         return
     # Otherwise, execute the prefix rule
@@ -265,4 +264,4 @@ def compile(source, chunk):
 
 
 # create the parser
-parser = Parser(Chunk())
+parser = Parser()
