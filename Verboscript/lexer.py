@@ -14,7 +14,7 @@ tokenType = [# Single Character tokens
              # Literal tokens
              "TOKEN_IDENTIFIER", "TOKEN_STRING", "TOKEN_NUMBER",
              # Language keywords
-             "TOKEN_FALSE", "TOKEN_NONE", "TOKEN_SHOW", "TOKEN_TRUE",
+             "TOKEN_FALSE", "TOKEN_NONE", "TOKEN_NOT", "TOKEN_SHOW", "TOKEN_TRUE",
              # Miscellaneous
              "TOKEN_NEWLINE", "TOKEN_INDENT",
              "TOKEN_ERROR", "TOKEN_EOF", ]
@@ -174,7 +174,7 @@ def number():
 # check if a keyword matches the input
 def checkKeyword(string, token):
     # check that the string math is the same as the lexer source at this point
-    if lexer.source[lexer.start: lexer.current] == string:
+    if lexer.source[lexer.start : lexer.current] == string:
         return token
     # otherwise, return the default
     return "TOKEN_IDENTIFIER"
@@ -183,6 +183,7 @@ def checkKeyword(string, token):
 def identifierType():
     # fetch the first character we are lexing
     c = lexer.source[lexer.start]
+    nxt = lexer.source[lexer.start : lexer.current]
     #check for tokens by matching their strings
     if c == "a":
         return checkKeyword("add", "TOKEN_PLUS")
@@ -191,16 +192,18 @@ def identifierType():
     elif c == "m":
         return checkKeyword("minus", "TOKEN_MINUS")
     elif c == "n":
-        return checkKeyword("none", "TOKEN_NONE")
+        if nxt[1] == "o":
+            if nxt[2] == "t":
+                return checkKeyword("not", "TOKEN_NOT")
+            return checkKeyword("none", "TOKEN_NONE")
     elif c == "o":
         return checkKeyword("over", "TOKEN_SLASH")
     elif c == "s":
         return checkKeyword("show", "TOKEN_SHOW")
     elif c == "t":
-        nxt = lexer.source[lexer.start + 1]
-        if nxt == "r":
+        if nxt[1] == "r":
             return checkKeyword("true", "TOKEN_TRUE")
-        elif nxt == "i":
+        elif nxt[1] == "i":
             return checkKeyword("times", "TOKEN_STAR")
     # currently we only deal with identifiers
     return "TOKEN_IDENTIFIER"
@@ -247,6 +250,8 @@ def scanToken():
         return makeToken("TOKEN_DOT")
     elif c == ",":
         return makeToken("TOKEN_COMMA")
+    elif c == "!":
+        return makeToken("TOKEN_NOT")
     # Operations
     elif c == "+":
         return makeToken("TOKEN_PLUS")

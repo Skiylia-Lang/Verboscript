@@ -162,7 +162,9 @@ def unary():
     # compile the operand as a unary
     parsePrecedence("PREC_UNARY")
     # and emit the operator
-    if optype == "TOKEN_MINUS":
+    if optype == "TOKEN_NOT":
+        emitByte("OP_NOT")
+    elif optype == "TOKEN_MINUS":
         emitByte("OP_NEGATE")
     # otherwise, nothing
     return
@@ -210,6 +212,7 @@ Rules = {# Token: [prefix, infix, precedence]
          "TOKEN_RIGHT_PAREN": parseRule(None,     None,   "PREC_NONE"),
          "TOKEN_COMMA":       parseRule(None,     None,   "PREC_NONE"),
          "TOKEN_DOT":         parseRule(None,     None,   "PREC_NONE"),
+         "TOKEN_NOT":         parseRule(unary,    None,   "PREC_NONE"),
          # Operations
          "TOKEN_MINUS":       parseRule(unary,    binary, "PREC_TERM"),
          "TOKEN_PLUS":        parseRule(None,     binary, "PREC_TERM"),

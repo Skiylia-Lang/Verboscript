@@ -112,6 +112,9 @@ def run():
             elif instruct == "OP_DIVIDE":
                 # do the binary operation with addition
                 BINARY_OP(numVal, op.truediv)
+            elif instruct == "OP_NOT":
+                # negate a truthy
+                push(boolVal(isFalsey(pop())))
             elif instruct == "OP_NEGATE":
                 # ensure we have a Number
                 if not isNum(peek(0)):
@@ -151,6 +154,11 @@ def pop():
 # peek at the top of the stack without removing or adding information
 def peek(dist=0):
     return vm.stack[-int(1+dist)]
+
+# check if a thing is falsey
+def isFalsey(value):
+    # ensue the value is boolean, and not null
+    return isNone(value) or (isBool(value) and not asBool(value))
 
 # and create the virtual machine
 vm = VM(Chunk())

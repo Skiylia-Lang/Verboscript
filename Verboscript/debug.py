@@ -38,6 +38,8 @@ def disasembleInstruction(chunk, offset):
             return constantInstruction(instruct, chunk, offset)
         elif instruct in [#Booleans
                           "OP_NONE", "OP_FALSE", "OP_TRUE",
+                          # Logical operations
+                          "OP_NOT",
                           #Mathematical operations
                           "OP_ADD", "OP_SUBTRACT", "OP_MULTIPLY", "OP_DIVIDE", "OP_NEGATE",
                           # Miscellaneous
