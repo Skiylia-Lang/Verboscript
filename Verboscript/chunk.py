@@ -13,6 +13,9 @@ OpCodes = {"OP_CONSTANT",
            "OP_FALSE",
            "OP_NONE",
            # Logical operations
+           "OP_EQUAL",
+           "OP_GREATER",
+           "OP_LESS",
            "OP_NOT",
            # Binary operations
            "OP_ADD",

@@ -8,13 +8,15 @@ from common import *
 # Global variables
 tokenType = [# Single Character tokens
              "TOKEN_LEFT_PAREN", "TOKEN_RIGHT_PAREN",
-             "TOKEN_DOT", "TOKEN_COMMA",
+             "TOKEN_DOT", "TOKEN_COMMA", "TOKEN_EQUAL"
+             # Logical operations
+             "TOKEN_EQUAL_EQUAL", "TOKEN_GREATER", "TOKEN_LESS", "TOKEN_NOT",
              # Operations tokens
              "TOKEN_MINUS", "TOKEN_PLUS", "TOKEN_SLASH", "TOKEN_STAR",
              # Literal tokens
              "TOKEN_IDENTIFIER", "TOKEN_STRING", "TOKEN_NUMBER",
              # Language keywords
-             "TOKEN_FALSE", "TOKEN_NONE", "TOKEN_NOT", "TOKEN_SHOW", "TOKEN_TRUE",
+             "TOKEN_FALSE", "TOKEN_NONE", "TOKEN_SHOW", "TOKEN_TRUE",
              # Miscellaneous
              "TOKEN_NEWLINE", "TOKEN_INDENT",
              "TOKEN_ERROR", "TOKEN_EOF", ]

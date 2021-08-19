@@ -212,6 +212,10 @@ Rules = {# Token: [prefix, infix, precedence]
          "TOKEN_RIGHT_PAREN": parseRule(None,     None,   "PREC_NONE"),
          "TOKEN_COMMA":       parseRule(None,     None,   "PREC_NONE"),
          "TOKEN_DOT":         parseRule(None,     None,   "PREC_NONE"),
+         # Logical operations
+         "TOKEN_EQUAL_EQUAL": parseRule(None,     binary, "PREC_EQUALITY"),
+         "TOKEN_GREATER":     parseRule(None,     binary, "PREC_COMPARISON"),
+         "TOKEN_LESS":        parseRule(None,     binary, "PREC_COMPARISON"),
          "TOKEN_NOT":         parseRule(unary,    None,   "PREC_NONE"),
          # Operations
          "TOKEN_MINUS":       parseRule(unary,    binary, "PREC_TERM"),
