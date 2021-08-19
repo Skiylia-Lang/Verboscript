@@ -67,6 +67,21 @@ def formatValue(value):
     elif valtype == "VAL_NUMBER":
         return asNum(value)
 
+# extract an equality between two values
+def valuesEqual(a, b):
+    # if they have different types, they're not strictly equal
+    if a.valueType != b.valueType:
+        return False
+    # otherwise, check for types
+    if a.valueType == "VAL_BOOL":
+        return asBool(a) == asBool(b)
+    elif a.valueType == "VAL_NONE":
+        return True
+    elif a.valueType == "VAL_NUMBER":
+        return asNum(a) == asNum(b)
+    # false if nothing else
+    return False
+
 # write a value to a valueArray
 def writeValueArray(valueArray, value):
     # append the byte to the chunk

@@ -13,9 +13,13 @@ from lexer import initLexer, scanToken
 # the precedence table
 Precedence = ["PREC_NONE",
               "PREC_ASSIGNMENT", # =
+              "PREC_OR", # | or
+              "PREC_AND", # & and
+              "PREC_EQUALITY", # 'equal to' ==
+              "PREC_COMPARISON", # 'greater than', 'less than', < >
               "PREC_TERM", # + -
               "PREC_FACTOR", # * /
-              "PREC_UNARY", # -
+              "PREC_UNARY", # not ! -
               "PREC_PRIMARY",]
 
 # Parser rule struct
@@ -178,7 +182,15 @@ def binary():
     # sort out the precedence (binary expressions are left associative, so we ensure the precedence is one higher)
     parsePrecedence(Precedence[Precedence.index(rule) + 1])
     # and emit the operator
-    if optype == "TOKEN_PLUS":
+    # Logical operations
+    if optype == "TOKEN_EQUAL_EQUAL":
+        emitByte("OP_EQUAL")
+    elif optype == "TOKEN_GREATER":
+        emitByte("OP_GREATER")
+    elif optype == "TOKEN_LESS":
+        emitByte("OP_LESS")
+    # Maths operations
+    elif optype == "TOKEN_PLUS":
         emitByte("OP_ADD")
     elif optype == "TOKEN_MINUS":
         emitByte("OP_SUBTRACT")
@@ -212,6 +224,7 @@ Rules = {# Token: [prefix, infix, precedence]
          "TOKEN_RIGHT_PAREN": parseRule(None,     None,   "PREC_NONE"),
          "TOKEN_COMMA":       parseRule(None,     None,   "PREC_NONE"),
          "TOKEN_DOT":         parseRule(None,     None,   "PREC_NONE"),
+         "TOKEN_EQUAL":       parseRule(None,     None,   "PREC_NONE"),
          # Logical operations
          "TOKEN_EQUAL_EQUAL": parseRule(None,     binary, "PREC_EQUALITY"),
          "TOKEN_GREATER":     parseRule(None,     binary, "PREC_COMPARISON"),

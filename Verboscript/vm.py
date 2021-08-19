@@ -100,6 +100,18 @@ def run():
             elif instruct == "OP_TRUE":
                 # push true to the stack
                 push(boolVal(True))
+            elif instruct == "OP_EQUAL":
+                # fetch the two operands
+                b = pop()
+                a = pop()
+                # and compare them
+                push(boolVal(valuesEqual(a, b)))
+            elif instruct == "OP_GREATER":
+                # binary operation of greater than
+                BINARY_OP(boolVal, op.gt)
+            elif instruct == "OP_LESS":
+                # binary operation of less than
+                BINARY_OP(boolVal, op.lt)
             elif instruct == "OP_ADD":
                 # do the binary operation with addition
                 BINARY_OP(numVal, op.add)

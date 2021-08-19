@@ -91,30 +91,50 @@ def peek(offset = 0):
         return "\0"
     return lexer.source[lexer.current + offset]
 
+# function to peek a the character as measured from the start, rather than current, of a token
+def peekstart(offset = 0):
+    #print(lexer.current, offset)
+    if atEnd(offset):
+        return "\0"
+    return lexer.source[lexer.start + offset]
+
 # function to see if the expected character apears
 def match(exp):
     # check we aren't at the end of the file
     if atEnd():
         return False
     # if it isn't what we expect
-    if lexer.source[lexer.current] != exp:
+    if peek() != exp:
         return False
     # if it is what we expected, increment and return
     lexer.current += 1
     return True
 
-# function to match multiple
-def multimatch(chars):
+# function to check if a string appears since the start token
+def matchchars(chars, pos=-1):
+    # if we were not given a position, use the current
+    if pos < 0:
+        pos = lexer.current
     # check we aren't at the end of the file
     if atEnd(len(chars)):
         return False
     # begin itterating through the chars
     for cou, val in enumerate(chars):
-        if lexer.source[lexer.current + cou] != val:
+        if lexer.source[pos + cou] != val:
             return False
-    # if it is what we expected, increment and return
-    lexer.current += len(chars)
+    # if it is what we expected, return true
     return True
+
+# function to match multiple
+def multimatch(chars):
+    # check for a match
+    matched = matchchars(chars)
+    # if we had a match
+    if matched:
+        # then increment the current position
+        lexer.current += len(chars)
+    # return the true / false match
+    return matched
 
 # skip any whitespace that does not contribute to an indent
 def skipWhitespace():
@@ -181,21 +201,42 @@ def checkKeyword(string, token):
     # otherwise, return the default
     return "TOKEN_IDENTIFIER"
 
+# check if a string of keywords match the input
+def checkKeywordWithSpace(string, token):
+    # check that the string sequence matches, and has a space afterwards
+    if lexer.source[lexer.start : lexer.start + len(string) + 1] == string+" ":
+        # jump the current position of the lexer forward to the end of the match
+        lexer.current = lexer.start + len(string)
+        # and return the token
+        return token
+    # otherwise, return the first keyword as an identifier
+    return "TOKEN_IDENTIFIER"
+
 # check for the identifier type
 def identifierType():
     # fetch the first character we are lexing
-    c = lexer.source[lexer.start]
-    nxt = lexer.source[lexer.start : lexer.current]
+    c = peekstart()
+    nxt = peekstart(1)
     #check for tokens by matching their strings
     if c == "a":
         return checkKeyword("add", "TOKEN_PLUS")
+    elif c == "e":
+        # match for the unique first to filter it out
+        if matchchars("equals", lexer.start):
+            return checkKeyword("equals", "TOKEN_EQUAL_EQUAL")
+        elif matchchars("equal to", lexer.start):
+            return checkKeywordWithSpace("equal to", "TOKEN_EQUAL_EQUAL")
     elif c == "f":
         return checkKeyword("false", "TOKEN_FALSE")
+    elif c == "g":
+        return checkKeywordWithSpace("greater than", "TOKEN_GREATER")
+    elif c == "l":
+        return checkKeywordWithSpace("less than", "TOKEN_LESS")
     elif c == "m":
         return checkKeyword("minus", "TOKEN_MINUS")
     elif c == "n":
-        if nxt[1] == "o":
-            if nxt[2] == "t":
+        if nxt == "o":
+            if peekstart(2) == "t":
                 return checkKeyword("not", "TOKEN_NOT")
             return checkKeyword("none", "TOKEN_NONE")
     elif c == "o":
@@ -203,9 +244,9 @@ def identifierType():
     elif c == "s":
         return checkKeyword("show", "TOKEN_SHOW")
     elif c == "t":
-        if nxt[1] == "r":
+        if nxt == "r":
             return checkKeyword("true", "TOKEN_TRUE")
-        elif nxt[1] == "i":
+        elif nxt == "i":
             return checkKeyword("times", "TOKEN_STAR")
     # currently we only deal with identifiers
     return "TOKEN_IDENTIFIER"
@@ -254,6 +295,16 @@ def scanToken():
         return makeToken("TOKEN_COMMA")
     elif c == "!":
         return makeToken("TOKEN_NOT")
+    elif c == ">":
+        return makeToken("TOKEN_GREATER")
+    elif c == "<":
+        return makeToken("TOKEN_LESS")
+    # Double width characters
+    elif c == "=":
+        # check for a following equality
+        if peek() == "=":
+            return makeToken("TOKEN_EQUAL_EQUAL")
+        return makeToken("TOKEN_EQUAL")
     # Operations
     elif c == "+":
         return makeToken("TOKEN_PLUS")
