@@ -8,7 +8,7 @@ from common import *
 # Global variables
 tokenType = [# Single Character tokens
              "TOKEN_LEFT_PAREN", "TOKEN_RIGHT_PAREN",
-             "TOKEN_DOT", "TOKEN_COMMA", "TOKEN_EQUAL"
+             "TOKEN_DOT", "TOKEN_COMMA", "TOKEN_EQUAL",
              # Logical operations
              "TOKEN_EQUAL_EQUAL", "TOKEN_GREATER", "TOKEN_LESS", "TOKEN_NOT",
              # Operations tokens
@@ -76,6 +76,10 @@ def isAlphaNumeric(char):
 def atEnd(offset = 0):
     return (lexer.current + offset) >= lexer.sourcelen
 
+# function to compute if we are at the end of the file from the start, rather than current
+def atEndFromStart(offset = 0):
+    return (lexer.start + offset) >= lexer.sourcelen
+
 # function to fetch the next character
 def advance():
     # increment the current position
@@ -116,12 +120,12 @@ def matchchars(chars, pos=-1):
     if pos < 0:
         pos = lexer.current
     # check we aren't at the end of the file
-    if atEnd(len(chars)):
+    if atEndFromStart(len(chars)):
         return False
     # begin itterating through the chars
     for cou, val in enumerate(chars):
-        if lexer.source[pos + cou] != val:
-            return False
+     if lexer.source[pos + cou] != val:
+         return False
     # if it is what we expected, return true
     return True
 
@@ -224,7 +228,7 @@ def identifierType():
         # match for the unique first to filter it out
         if matchchars("equals", lexer.start):
             return checkKeyword("equals", "TOKEN_EQUAL_EQUAL")
-        elif matchchars("equal to", lexer.start):
+        if matchchars("equal to", lexer.start):
             return checkKeywordWithSpace("equal to", "TOKEN_EQUAL_EQUAL")
     elif c == "f":
         return checkKeyword("false", "TOKEN_FALSE")
