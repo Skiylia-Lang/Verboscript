@@ -36,7 +36,14 @@ def disasembleInstruction(chunk, offset):
         # find the instruction type and print
         if instruct in ["OP_CONSTANT"]:
             return constantInstruction(instruct, chunk, offset)
-        elif instruct in ["OP_ADD", "OP_SUBTRACT", "OP_MULTIPLY", "OP_DIVIDE", "OP_NEGATE", "OP_RETURN"]:
+        elif instruct in [#Booleans
+                          "OP_NONE", "OP_FALSE", "OP_TRUE",
+                          # Logical operations
+                          "OP_EQUAL", "OP_GREATER", "OP_LESS", "OP_NOT",
+                          #Mathematical operations
+                          "OP_ADD", "OP_SUBTRACT", "OP_MULTIPLY", "OP_DIVIDE", "OP_NEGATE",
+                          # Miscellaneous
+                          "OP_RETURN"]:
             return simpleInstruction(instruct, offset)
     else:
         # otherwise show a mini error
@@ -49,7 +56,7 @@ def constantInstruction(name, chunk, offset):
     # fetch the constant value
     const = chunk.code[offset + 1]
     # and print
-    print("{:<16s} {:4d} '{}'".format(name, const, chunk.constants.values[const]))
+    print("{:<16s} {:4d} '{}'".format(name, const, formatValue(chunk.constants.values[const])))
     # and return the offset
     return offset + 2
 
