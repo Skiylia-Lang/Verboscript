@@ -1,0 +1,37 @@
+a program that asks the user for two numbers, and shows the sum, and product of, those numbers.
+
+# Python:
+a = input("What is the first number:\n> ")
+b = input("What is the second number:\n> ")
+
+print("the sum of", a, "and", b, "is", a+b)
+print("the product of", a, "and", b, "is", a*b)
+
+# Verboscript
+ask the user "what is the first number?" and store the result in the variable a
+ask the user "what is the second number?" and store the result in the variable b
+show "the sum of a and b is a plus b"
+show "the sum of a and b is a multiplied by b"
+
+
+a nice feature to have: mathematical equations
+
+two different ways of writing it:
+
+let f(x) equal x^2 + 3.
+show f(3).
+
+create a function, f, with input x, that is equal to x squared plus three.
+show the function f with input 3.
+
+-> implicit returns -> equivalent to the following
+create a function, f, with input x:
+  return the value of x^2 + 3.
+
+show the function f with input 3.
+
+
+terminology
+
+one plus one, one add three, sum of one and two, one + six, add six and five
+two to the power six, three squared, cubed, 3**5, 3^6

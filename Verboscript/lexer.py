@@ -307,6 +307,8 @@ def scanToken():
     elif c == "=":
         # check for a following equality
         if peek() == "=":
+            # advance and consume the next "equals" symbol
+            advance()
             return makeToken("TOKEN_EQUAL_EQUAL")
         return makeToken("TOKEN_EQUAL")
     # Operations

@@ -1,0 +1,15 @@
+comment: compute the first n Fibonacci numbers
+         0, 1, 1, 2, 3, 5, 8, 13, etc...
+
+create a function called fib, with inputs n, a, and b.
+  set a to 0 and b to 1 if no input is given.
+  create an empty list called out.
+  start a counter called x which counts between 0 and n:
+    set a and b to a+b and a respectively.
+    append the value of b to out.
+  return the value of out.
+
+create a variable, n, which is equal to 20.
+make an empty list called fibs.
+set fibs to the output of the function fib, with input n.
+show "the first n Fibonacci numbers are fibs.
